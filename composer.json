@@ -1,0 +1,22 @@
+{
+    "name": "orlandocharles/cfdi",
+    "description": "Librería para generar Comprobantes Fiscales para la versión 3.3",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "cfdi", "sat"
+    ],
+    "authors": [
+        {
+            "name": "Orlando Charles",
+            "email": "me@orlandocharles.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Charles\\CFDI\\": "src/CFDI"
+        }
+    },
+    "prefer-stable": true
+}
