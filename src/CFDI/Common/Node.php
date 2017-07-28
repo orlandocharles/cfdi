@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Charles\CFDI;
+namespace Charles\CFDI\Common;
 
 use DOMDocument;
 use DOMElement;
@@ -22,24 +22,32 @@ use DOMElement;
 class Node
 {
     /**
+     * Node document.
+     *
      * @var \DOMDocument
      */
     protected $document;
 
     /**
+     * Node element.
+     *
      * @var \DOMElement
      */
     protected $element;
 
     /**
+     * Node attributes.
+     *
      * @var array
      */
-    protected $attr;
+    protected $attr = [];
 
     /**
+     * Create a new node instance.
+     *
      * @param array    $attr
      */
-    public function __construct(array $attr)
+    public function __construct(...$attr)
     {
         $this->attr = $attr;
 
@@ -52,6 +60,11 @@ class Node
         $this->setAtributes($this->element, $this->getAttr());
     }
 
+    /**
+     *
+     *
+     * @return void
+     */
     public function add($node)
     {
         $nodeElement = $this->document->createElement($node->getNodeName());
@@ -64,6 +77,7 @@ class Node
                 $parentElement = $this->document->createElement($parentName);
                 $this->element->appendChild($parentElement);
                 $parentElement->appendChild($nodeElement);
+                $this->setAtributes($parentElement, $node->getAttr('parent'));
 
             } else {
                 $parentNode->item(0)->appendChild($nodeElement);
@@ -81,17 +95,23 @@ class Node
     }
 
     /**
+     *
+     *
      * @param DOMElement    $element
      * @param array         $attr
      */
-    public function setAtributes(DOMElement $element, array $attr)
+    public function setAtributes(DOMElement $element, $attr)
     {
-        foreach ($attr as $key => $value) {
-            $element->setAttribute($key, $value);
+        if (!is_null($attr)) {
+            foreach ($attr as $key => $value) {
+                $element->setAttribute($key, $value);
+            }
         }
     }
 
     /**
+     * Get the element.
+     *
      * @return \DOMElement
      */
     public function getElement()
@@ -100,6 +120,8 @@ class Node
     }
 
     /**
+     * Get the document.
+     *
      * @return \DOMElement
      */
     public function getDocument()
@@ -108,14 +130,28 @@ class Node
     }
 
     /**
+     * Get the node attributes.
+     *
+     * @param string    $index
+     *
      * @return array
      */
-    public function getAttr()
+    public function getAttr($index = 'node')
     {
-        return $this->attr;
+        $attrIndex = ['node', 'parent', 'wrapper'];
+
+        if (in_array($index, $attrIndex)) {
+            $index = array_search($index, $attrIndex);
+        } else {
+            $index = 0;
+        }
+
+        return (isset($this->attr[$index])) ? $this->attr[$index] : null;
     }
 
     /**
+     * Get the parent node name.
+     *
      * @return string|null
      */
     public function getParentNodeName()
@@ -124,6 +160,8 @@ class Node
     }
 
     /**
+     * Get the node name.
+     *
      * @return string
      */
     public function getNodeName()
