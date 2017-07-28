@@ -11,8 +11,7 @@
 
 namespace Charles\CFDI;
 
-use Charles\CFDI\Comprobante;
-use Charles\CFDI\Node;
+use Charles\CFDI\Node\Comprobante;
 use DOMDocument;
 use DOMElement;
 use XSLTProcessor;
@@ -25,28 +24,46 @@ use XSLTProcessor;
 class CFDI
 {
     /**
+     * SAT XSL endpoint
+     *
      * @var string
      */
     const XSL_ENDPOINT = 'http://www.sat.gob.mx/sitio_internet/cfd/3/cadenaoriginal_3_3/cadenaoriginal_3_3.xslt';
 
     /**
+     * CFDI version.
+     *
      * @var string
      */
     protected $version = '3.3';
 
+    /**
+     * CSD key.
+     *
+     * @var string
+     */
     protected $key;
 
+    /**
+     * CSD cer
+     *
+     * @var string
+     */
     protected $cer;
 
     /**
+     * Comprobante instance.
+     *
      * @var \Charles\CFDI\Comprobante
      */
     protected $comprobante;
 
     /**
+     * Create a new cfdi instance.
+     *
      * @param array     $data
-     * @param $key
-     * @param $cer
+     * @param string    $key
+     * @param string    $cer
      */
     public function __construct($data, $cer, $key)
     {
@@ -56,19 +73,23 @@ class CFDI
     }
 
     /**
-     * @param Charles\CFDI\Node     $node
+     * Add new node to comprobante instance.
+     *
+     * @param $node
      *
      * @return $this
      */
-    public function add(Node $node)
+    public function add($node)
     {
         $this->comprobante->add($node);
     }
 
     /**
+     *
+     *
      * @return string
      */
-    protected function getCadenaOriginal()
+    public function getCadenaOriginal()
     {
         $xsl = new DOMDocument();
         $xsl->load(static::XSL_ENDPOINT);
@@ -83,9 +104,11 @@ class CFDI
     }
 
     /**
+     *
+     *
      * @return string
      */
-    protected function getSello()
+    public function getSello()
     {
         $pkey = openssl_get_privatekey($this->key);
         openssl_sign($this->getCadenaOriginal(), $signature, $pkey, OPENSSL_ALGO_SHA256);
@@ -93,6 +116,11 @@ class CFDI
         return base64_encode($signature);
     }
 
+    /**
+     *
+     *
+     * @return void
+     */
     protected function putSello()
     {
         $this->comprobante->setAtributes(
@@ -103,6 +131,8 @@ class CFDI
     }
 
     /**
+     *
+     *
      * @param string    $path
      * @param string    $name
      */
