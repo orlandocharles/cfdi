@@ -9,7 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Charles\CFDI;
+namespace Charles\CFDI\Node;
+
+use Charles\CFDI\Common\Node;
 
 /**
  * This is the cuenta predial class.
@@ -19,7 +21,7 @@ namespace Charles\CFDI;
 class CuentaPredial extends Node
 {
     /**
-     * Node name
+     * Node name.
      *
      * @var string
      */

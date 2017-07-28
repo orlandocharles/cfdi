@@ -9,7 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Charles\CFDI;
+namespace Charles\CFDI\Node;
+
+use Charles\CFDI\Common\Node;
 
 /**
  * This is the comprobante class.
@@ -19,6 +21,8 @@ namespace Charles\CFDI;
 class Comprobante extends Node
 {
     /**
+     * CFDI version.
+     *
      * @var string
      */
     protected $version;
@@ -31,6 +35,8 @@ class Comprobante extends Node
     protected $nodeName = 'cfdi:Comprobante';
 
     /**
+     * Create a new comprobante instance.
+     *
      * @param array   $data
      * @param string  $version
      */
@@ -43,15 +49,17 @@ class Comprobante extends Node
     }
 
     /**
+     * Node attributes.
+     *
      * @return array
      */
     public function attributes()
     {
         return [
-            'Version' => $this->version,
             'xmlns:cfdi' => 'http://www.sat.gob.mx/cfd/3',
             'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
             'xsi:schemaLocation' => 'http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd',
+            'Version' => $this->version,
         ];
     }
 }

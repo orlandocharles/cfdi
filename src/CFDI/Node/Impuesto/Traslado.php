@@ -9,19 +9,26 @@
  * file that was distributed with this source code.
  */
 
-namespace Charles\CFDI\Impuesto;
-
-use Charles\CFDI\Node;
+namespace Charles\CFDI\Node\Impuesto;
 
 /**
- * This is the impuesto class.
+ * This is the traslado class.
  *
  * @author Orlando Charles <me@orlandocharles.com>
  */
-class Impuesto extends Node
+class Traslado extends Impuesto
 {
     /**
+     * Parent node name.
+     *
      * @var string
      */
-    protected $wrapperNodeName = 'cfdi:Impuestos';
+    protected $parentNodeName = 'cfdi:Traslados';
+
+    /**
+     * Node name.
+     *
+     * @var string
+     */
+    protected $nodeName = 'cfdi:Traslado';
 }

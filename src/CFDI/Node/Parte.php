@@ -9,26 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Charles\CFDI;
+namespace Charles\CFDI\Node;
+
+use Charles\CFDI\Common\Node;
 
 /**
- * This is the cfdi relacionado class.
+ * This is the parte class.
  *
  * @author Orlando Charles <me@orlandocharles.com>
  */
-class Relacionado extends Node
+class Parte extends Node
 {
-    /**
-     * Parent node name.
-     *
-     * @var string
-     */
-    protected $parentNodeName = 'cfdi:CfdiRelacionados';
-
     /**
      * Node name.
      *
      * @var string
      */
-    protected $nodeName = 'cfdi:CfdiRelacionado';
+    protected $nodeName = 'cfdi:Parte';
 }

@@ -9,19 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Charles\CFDI;
+namespace Charles\CFDI\Node;
+
+use Charles\CFDI\Common\Node;
 
 /**
- * This is the emisor class.
+ * This is the información aduanera class.
  *
  * @author Orlando Charles <me@orlandocharles.com>
  */
-class Emisor extends Node
+class InformacionAduanera extends Node
 {
     /**
-     * Node name
+     * Node name.
      *
      * @var string
      */
-    protected $nodeName = 'cfdi:Emisor';
+    protected $nodeName = 'cfdi:InformacionAduanera';
 }

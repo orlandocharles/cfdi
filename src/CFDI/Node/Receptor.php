@@ -9,26 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Charles\CFDI;
+namespace Charles\CFDI\Node;
+
+use Charles\CFDI\Common\Node;
 
 /**
- * This is the concepto class.
+ * This is the receptor class.
  *
  * @author Orlando Charles <me@orlandocharles.com>
  */
-class Concepto extends Node
+class Receptor extends Node
 {
     /**
-     * Parent node name
+     * Node name.
      *
      * @var string
      */
-    protected $parentNodeName = 'cfdi:Conceptos';
-
-    /**
-     * Node name
-     *
-     * @var string
-     */
-    protected $nodeName = 'cfdi:Concepto';
+    protected $nodeName = 'cfdi:Receptor';
 }

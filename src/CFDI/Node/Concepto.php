@@ -9,19 +9,28 @@
  * file that was distributed with this source code.
  */
 
-namespace Charles\CFDI;
+namespace Charles\CFDI\Node;
+
+use Charles\CFDI\Common\Node;
 
 /**
- * This is the información aduanera class.
+ * This is the concepto class.
  *
  * @author Orlando Charles <me@orlandocharles.com>
  */
-class InformacionAduanera extends Node
+class Concepto extends Node
 {
     /**
-     * Node name
+     * Parent node name.
      *
      * @var string
      */
-    protected $nodeName = 'cfdi:InformacionAduanera';
+    protected $parentNodeName = 'cfdi:Conceptos';
+
+    /**
+     * Node name.
+     *
+     * @var string
+     */
+    protected $nodeName = 'cfdi:Concepto';
 }

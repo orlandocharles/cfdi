@@ -9,26 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Charles\CFDI\Impuesto;
+namespace Charles\CFDI\Node\Complemento;
+
+use Charles\CFDI\Common\Node;
 
 /**
- * This is the retención class.
+ * This is the timbre fiscal class.
  *
  * @author Orlando Charles <me@orlandocharles.com>
  */
-class Retencion extends Impuesto
+class TimbreFiscal extends Complemento
 {
-    /**
-     * Parent node name.
-     *
-     * @var string
-     */
-    protected $parentNodeName = 'cfdi:Retenciones';
-
     /**
      * Node name.
      *
      * @var string
      */
-    protected $nodeName = 'cfdi:Retencion';
+    protected $nodeName = 'tfd:TimbreFiscalDigital';
 }

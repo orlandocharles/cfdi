@@ -9,19 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Charles\CFDI;
+namespace Charles\CFDI\Node\Complemento;
+
+use Charles\CFDI\Common\Node;
 
 /**
- * This is the parte class.
+ * This is the timbre fiscal class.
  *
  * @author Orlando Charles <me@orlandocharles.com>
  */
-class Parte extends Node
+class Complemento extends Node
 {
     /**
-     * Node name.
+     * Parent node name.
      *
      * @var string
      */
-    protected $nodeName = 'cfdi:Parte';
+    protected $parentNodeName = 'cfdi:Complemento';
 }

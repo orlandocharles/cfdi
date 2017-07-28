@@ -9,26 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Charles\CFDI;
+namespace Charles\CFDI\Node\Impuesto;
+
+use Charles\CFDI\Common\Node;
 
 /**
- * This is the timbre fiscal class.
+ * This is the impuesto class.
  *
  * @author Orlando Charles <me@orlandocharles.com>
  */
-class TimbreFiscal extends Node
+class Impuesto extends Node
 {
     /**
-     * Parent node name.
+     * Wrapper node name.
      *
      * @var string
      */
-    protected $parentNodeName = 'cfdi:Complemento';
-
-    /**
-     * Node name.
-     *
-     * @var string
-     */
-    protected $nodeName = 'tfd:TimbreFiscalDigital';
+    protected $wrapperNodeName = 'cfdi:Impuestos';
 }

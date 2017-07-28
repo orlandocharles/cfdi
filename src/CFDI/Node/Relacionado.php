@@ -9,19 +9,28 @@
  * file that was distributed with this source code.
  */
 
-namespace Charles\CFDI;
+namespace Charles\CFDI\Node;
+
+use Charles\CFDI\Common\Node;
 
 /**
- * This is the receptor class.
+ * This is the cfdi relacionado class.
  *
  * @author Orlando Charles <me@orlandocharles.com>
  */
-class Receptor extends Node
+class Relacionado extends Node
 {
+    /**
+     * Parent node name.
+     *
+     * @var string
+     */
+    protected $parentNodeName = 'cfdi:CfdiRelacionados';
+
     /**
      * Node name.
      *
      * @var string
      */
-    protected $nodeName = 'cfdi:Receptor';
+    protected $nodeName = 'cfdi:CfdiRelacionado';
 }
