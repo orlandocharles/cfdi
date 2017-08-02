@@ -9,10 +9,12 @@
 
 ## Instalación
 
+> Nota: el proyecto se encuentra en desarrollo.
+
 Para instalar el paquete mediante [Composer](https://getcomposer.org/).
 
-```
-$ composer require orlandocharles/cfdi
+```shell
+composer require orlandocharles/cfdi
 ```
 
 ## Uso
@@ -23,6 +25,12 @@ $ composer require orlandocharles/cfdi
 - [Receptor](#receptor)
 - [Concepto](#concepto)
 - [Impuestos](#concepto) (dev)
+  - [Traslado](#traslado)
+    - [Traslado en comprobante](#traslado-en-comprobante)
+    - [Traslado en concepto](#traslado-en-concepto)
+  - [Retención](#retención)
+    - [Retención en comprobante](#retención-en-comprobante)
+    - [Retención en concepto](#retención-en-concepto)
 - [Información Aduanera](#información-aduanera)
 - [Cuenta Predial](#cuenta-predial)
 - [Parte](#parte)
@@ -30,7 +38,6 @@ $ composer require orlandocharles/cfdi
 ### CFDI
 
 ```php
-<?php
 use Charles\CFDI\CFDI;
 
 $cer = file_get_contents('.../csd/AAA010101AAA.cer.pem');
@@ -49,9 +56,8 @@ $cfdi = new CFDI([
     'TipoCambio' => '1.0',
     'Total' => '',
     'TipoDeComprobante' => 'I',
-    'MetodoPago' => '',
+    'MetodoPago' => 'PUE',
     'LugarExpedicion' => '64000',
-    'Confirmacion' => '',
 ], $cer, $key);
 ```
 
@@ -60,7 +66,6 @@ $cfdi = new CFDI([
 En este nodo se debe expresar la información de los comprobantes fiscales relacionados con el que se ésta generando, se deben expresar tantos numeros de nodos de CfdiRelacionado, como comprobantes se requieran relacionar.
 
 ```php
-<?php
 use Charles\CFDI\CFDI;
 use Charles\CFDI\Node\Relacionado;
 
@@ -84,7 +89,6 @@ $cfdi->add(new Relacionado([
 En este nodo se debe expresar la información del contribuyente que emite el comprobante fiscal.
 
 ```php
-<?php
 use Charles\CFDI\CFDI;
 use Charles\CFDI\Node\Emisor;
 
@@ -106,7 +110,6 @@ $cfdi->add(new Emisor([
 En este nodo se debe expresar la información del contribuyente receptor del comprobante.
 
 ```php
-<?php
 use Charles\CFDI\CFDI;
 use Charles\CFDI\Node\Receptor;
 
@@ -130,7 +133,6 @@ $cfdi->add(new Receptor([
 En este nodo se debe expresar la información detallada de un bien o servicio descrito en el comprobante.
 
 ```php
-<?php
 use Charles\CFDI\CFDI;
 use Charles\CFDI\Node\Concepto;
 
@@ -172,25 +174,55 @@ $cfdi->add(new Concepto([
 
 #### Retención
 
+##### Retención en comprobante
+
 En este nodo se debe expresar la información detallada de una retención de un impuesto específico.
 
 ```php
-<?php
 use Charles\CFDI\CFDI;
 use Charles\CFDI\Node\Impuesto\Retencion;
 
 $cfdi->add(new Retencion([
-    'Impuesto" => "002',
-    'Importe" => "35000',
+    'Impuesto' => '002',
+    'Importe' => '35000',
 ]));
+```
+
+##### Retención en concepto
+
+```php
+use Charles\CFDI\CFDI;
+use Charles\CFDI\Node\Concepto;
+use Charles\CFDI\Node\Impuesto\Retencion;
+
+$cfdi = new CFDI([...]);
+
+$concepto = new Concepto([
+    'ClaveProdServ' => '10317331',
+    'NoIdentificacion' => 'UT421511',
+    'Cantidad' => '24',
+    'ClaveUnidad' => 'H87',
+    'Unidad' => 'Pieza',
+    'Descripcion' => 'Arreglo de 24 tulipanes rosadas recién cortados',
+    'ValorUnitario' => '56.00',
+    'Importe' => '1344.00',
+    'Descuento' => '10.00',
+]);
+
+$concepto->add(new Retencion([
+
+]));
+
+$cfdi->add($concepto);
 ```
 
 #### Traslado
 
+##### Traslado en comprobante
+
 En este nodo se debe expresar la información detallada de un traslado de impuesto específico.
 
 ```php
-<?php
 use Charles\CFDI\CFDI;
 use Charles\CFDI\Node\Impuesto\Traslado;
 
@@ -202,12 +234,39 @@ $cfdi->add(new Traslado([
 ]));
 ```
 
+##### Traslado en concepto
+
+```php
+use Charles\CFDI\CFDI;
+use Charles\CFDI\Node\Concepto;
+use Charles\CFDI\Node\Impuesto\Traslado;
+
+$cfdi = new CFDI([...]);
+
+$concepto = new Concepto([
+    'ClaveProdServ' => '10317331',
+    'NoIdentificacion' => 'UT421511',
+    'Cantidad' => '24',
+    'ClaveUnidad' => 'H87',
+    'Unidad' => 'Pieza',
+    'Descripcion' => 'Arreglo de 24 tulipanes rosadas recién cortados',
+    'ValorUnitario' => '56.00',
+    'Importe' => '1344.00',
+    'Descuento' => '10.00',
+]);
+
+$concepto->add(new Traslado([
+
+]));
+
+$cfdi->add($concepto);
+```
+
 ### Información Aduanera
 
 En este nodo se debe expresar la información aduanera correspondiente a cada concepto cuando se trate de ventas de primera mano de mercancías importadas
 
 ```php
-<?php
 use Charles\CFDI\CFDI;
 use Charles\CFDI\Node\Concepto;
 use Charles\CFDI\Node\InformacionAduanera;
@@ -227,7 +286,7 @@ $concepto = new Concepto([
 ]);
 
 $concepto->add(new InformacionAduanera([
-    "NumeroPedimento" => "00 00 0000 0000000",
+    'NumeroPedimento' => '00 00 0000 0000000',
 ]));
 
 $cfdi->add($concepto);
@@ -246,7 +305,6 @@ $cfdi->add($concepto);
 En este nodo se puede expresar el número de cuenta predial con el que fue registrado el inmueble en el sistema catastral de la entidad federativa de que trate, o bien para incorporar los datos de identificación del certificado de participación inmobiliaria no amortizable.
 
 ```php
-<?php
 use Charles\CFDI\CFDI;
 use Charles\CFDI\Node\Concepto;
 use Charles\CFDI\Node\CuentaPredial;
@@ -266,7 +324,6 @@ $cfdi->add($concepto);
 En este nodo se pueden expresar las partes o componentes que integran la totalidad del concepto expresado en el comprobante fiscal digital por Internet.
 
 ```php
-<?php
 use Charles\CFDI\CFDI;
 use Charles\CFDI\Node\Concepto;
 use Charles\CFDI\Node\Parte;
