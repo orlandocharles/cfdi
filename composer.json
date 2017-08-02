@@ -9,7 +9,8 @@
     "authors": [
         {
             "name": "Orlando Charles",
-            "email": "me@orlandocharles.com"
+            "email": "me@orlandocharles.com",
+            "homepage": "http://orlandocharles.com"
         }
     ],
     "minimum-stability": "dev",
