@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:dividendos="http://www.sat.gob.mx/esquemas/retencionpago/1/dividendos" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:c_retenciones="http://www.sat.gob.mx/esquemas/retencionpago/1/catalogos" targetNamespace="http://www.sat.gob.mx/esquemas/retencionpago/1/dividendos" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Dividendos">
+		<xs:annotation>
+			<xs:documentation>Complemento para  expresar  el total de  ganancias  y utilidades generadas por rendimientos en base a inversiones en instrumentos de inversión</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence minOccurs="0">
+				<xs:element name="DividOUtil" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Nodo opcional que expresa los dividendos o utilidades distribuidas del periodo o ejercicio</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attribute name="CveTipDivOUtil" type="c_retenciones:c_TipoDividendoOUtilidadDistribuida" use="required">
+							<xs:annotation>
+								<xs:documentation>Atributo requerido para expresar la clave del tipo de dividendo o utilidad distribuida de acuerdo al catálogo.</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="MontISRAcredRetMexico" type="dividendos:t_Importe" use="required">
+							<xs:annotation>
+								<xs:documentation>Atributo requerido para expresar el importe o retención  del dividendo o  utilidad en territorio nacional</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="MontISRAcredRetExtranjero" type="dividendos:t_Importe" use="required">
+							<xs:annotation>
+								<xs:documentation>Atributo requerido para expresar el importe o retención  del dividendo o  utilidad en territorio extranjero</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="MontRetExtDivExt" type="dividendos:t_Importe" use="optional">
+							<xs:annotation>
+								<xs:documentation>Atributo opcional para expresar el monto de la retención en el extranjero sobre dividendos del extranjero</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="TipoSocDistrDiv" use="required">
+							<xs:annotation>
+								<xs:documentation>Atributo requerido  para expresar si el dividendo es distribuido por sociedades nacionales o extranjeras.</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="Sociedad Nacional"/>
+									<xs:enumeration value="Sociedad Extranjera"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="MontISRAcredNal" type="dividendos:t_Importe" use="optional">
+							<xs:annotation>
+								<xs:documentation>Atributo opcional para expresar el monto del ISR acreditable nacional</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="MontDivAcumNal" type="dividendos:t_Importe" use="optional">
+							<xs:annotation>
+								<xs:documentation>Atributo opcional para expresar el monto del dividendo acumulable nacional</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="MontDivAcumExt" type="dividendos:t_Importe" use="optional">
+							<xs:annotation>
+								<xs:documentation>Atributo opcional para expresar el monto del dividendo acumulable extranjero</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Remanente" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Nodo opcional que expresa el resultado obtenido de la diferencia entre ingresos y egresos de las personas morales que distribuyan anticipos o rendimientos o sociedades de producción, sociedades y asociaciones civiles.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attribute name="ProporcionRem" use="optional">
+							<xs:annotation>
+								<xs:documentation>Atributo opcional que expresa el porcentaje de participación de sus integrantes o accionistas</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:decimal">
+									<xs:fractionDigits value="6"/>
+									<xs:maxInclusive value="9999999999"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Version" use="required" fixed="1.0">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido con valor prefijado que indica la versión del complemento de dividendos y/o dividendos distribuidos</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="t_Importe">
+		<xs:annotation>
+			<xs:documentation>Tipo definido para expresar importes numéricos con fracción hasta seis decimales</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="6"/>
+			<xs:whiteSpace value="collapse"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:premios="http://www.sat.gob.mx/esquemas/retencionpago/1/premios" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:c_retenciones="http://www.sat.gob.mx/esquemas/retencionpago/1/catalogos" targetNamespace="http://www.sat.gob.mx/esquemas/retencionpago/1/premios" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Premios">
+		<xs:annotation>
+			<xs:documentation>Complemento para expresar los premios obtenidos en un periodo o ejercicio</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Version" use="required" fixed="1.0">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido con valor prefijado que indica la versión del complemento de premios obtenidos</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="EntidadFederativa" type="c_retenciones:c_EntidadesFederativas" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar la entidad federativa en la que se paga el premio obtenido, conforme al catálogo.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="MontTotPago" type="premios:t_Importe" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar el importe del pago realizado por la obtención de un premio</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="MontTotPagoGrav" type="premios:t_Importe" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar el importe  gravado en la obtención de un premio</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="MontTotPagoExent" type="premios:t_Importe" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar el monto total exento en la obtención de un premio</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="t_Importe">
+		<xs:annotation>
+			<xs:documentation>Tipo definido para expresar importes numéricos con fracción hasta seis decimales</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="6"/>
+			<xs:whiteSpace value="collapse"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

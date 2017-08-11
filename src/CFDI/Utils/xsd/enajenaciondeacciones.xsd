@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:enajenaciondeacciones="http://www.sat.gob.mx/esquemas/retencionpago/1/enajenaciondeacciones" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.sat.gob.mx/esquemas/retencionpago/1/enajenaciondeacciones" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="EnajenaciondeAcciones">
+		<xs:annotation>
+			<xs:documentation>Complemento para expresar la enajenación de acciones u operaciones de valores (incluye ganancia o pérdida).</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Version" use="required" fixed="1.0">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido con valor prefijado que indica la versión del complemento de la enajenación de acciones u operaciones de valores</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="ContratoIntermediacion" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar la descripción del contrato de intermediación </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="300"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="Ganancia" type="enajenaciondeacciones:t_Importe" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar la ganancia obtenida por la enajenación de acciones u operación de valores</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="Perdida" type="enajenaciondeacciones:t_Importe" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar la pérdida en el contrato de intermediación</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="t_Importe">
+		<xs:annotation>
+			<xs:documentation>Tipo definido para expresar importes numéricos con fracción hasta seis decimales</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="6"/>
+			<xs:whiteSpace value="collapse"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

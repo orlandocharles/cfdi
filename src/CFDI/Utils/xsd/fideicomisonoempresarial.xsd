@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:fideicomisonoempresarial="http://www.sat.gob.mx/esquemas/retencionpago/1/fideicomisonoempresarial" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.sat.gob.mx/esquemas/retencionpago/1/fideicomisonoempresarial" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Fideicomisonoempresarial">
+		<xs:annotation>
+			<xs:documentation>Complemento para expresar la información sobre los fideicomisos que no realizan actividades empresariales</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="IngresosOEntradas">
+					<xs:annotation>
+						<xs:documentation>Nodo requerido para expresar el importe de los ingresos del periodo de fideicomisos que no realizan actividades empresariales</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="IntegracIngresos">
+								<xs:annotation>
+									<xs:documentation>Nodo requerido para expresar el detalle de la integración de los ingresos obtenidos en el periodo por fideicomisos que no realizan actividades empresariales</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:attribute name="Concepto" use="required">
+										<xs:annotation>
+											<xs:documentation>Atributo requerido para expresar la descripción del concepto de ingresos de los fideicomisos que no realizan actividades empresariales</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:minLength value="1"/>
+												<xs:maxLength value="100"/>
+												<xs:whiteSpace value="collapse"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="MontTotEntradasPeriodo" type="fideicomisonoempresarial:t_Importe" use="required">
+							<xs:annotation>
+								<xs:documentation>Atributo requerido para expresar el importe total de los ingresos del periodo de los fideicomisos que no realizan actividades empresariales</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="PartPropAcumDelFideicom" type="fideicomisonoempresarial:t_Importe" use="required">
+							<xs:annotation>
+								<xs:documentation>Atributo requerido para expresar la parte proporcional de los ingresos acumulables del periodo que correspondan al  fideicomisario o fideicomitente</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="PropDelMontTot" use="required">
+							<xs:annotation>
+								<xs:documentation>Atributo requerido para expresar la proporción de participación del fideicomisario o fideicomitente de acuerdo al contrato</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:decimal">
+									<xs:maxInclusive value="9999999999"/>
+									<xs:fractionDigits value="6"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="DeduccOSalidas">
+					<xs:annotation>
+						<xs:documentation>Nodo requerido para expresar  el importe de los egresos del periodo de fideicomisos que no realizan actividades empresariales</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="IntegracEgresos">
+								<xs:annotation>
+									<xs:documentation>Nodo requerido para expresar la integración de las deducciones en los ingresos obtenidos por fideicomisos que no realizan actividades empresariales</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:attribute name="ConceptoS" use="required">
+										<xs:annotation>
+											<xs:documentation>Atributo requerido para expresar la descripción del concepto de egresos de los fideicomisos que no realizan actividades empresariales</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:minLength value="1"/>
+												<xs:maxLength value="100"/>
+												<xs:whiteSpace value="collapse"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="MontTotEgresPeriodo" type="fideicomisonoempresarial:t_Importe" use="required">
+							<xs:annotation>
+								<xs:documentation>Atributo requerido para expresar el importe total de los egresos del periodo de fideicomiso que no realizan actividades empresariales</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="PartPropDelFideicom" type="fideicomisonoempresarial:t_Importe" use="required">
+							<xs:annotation>
+								<xs:documentation>Atributo requerido para expresar la parte proporcional de las deducciones autorizadas del periodo que corresponden al  fideicomisario o fideicomitente</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="PropDelMontTot" use="required">
+							<xs:annotation>
+								<xs:documentation>Atributo requerido para expresar la proporción de participación del fideicomisario o fideicomitente de acuerdo al contrato</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:decimal">
+									<xs:pattern value="\d{1,3}\.\d{1,6}"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="RetEfectFideicomiso">
+					<xs:annotation>
+						<xs:documentation>Nodo requerido para expresar las retenciones efectuadas al fideicomiso
+</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attribute name="MontRetRelPagFideic" type="fideicomisonoempresarial:t_Importe" use="required">
+							<xs:annotation>
+								<xs:documentation>Atributo requerido para expresar el monto de la retenciones con relación al fideicomiso</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="DescRetRelPagFideic" use="required">
+							<xs:annotation>
+								<xs:documentation>Atributo requerido para expresar la descripción de las retenciones con relación al fideicomiso</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="100"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Version" use="required" fixed="1.0">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido con valor prefijado que indica la versión del complemento sobre los fideicomisos que no realizan actividades empresariales</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="t_Importe">
+		<xs:annotation>
+			<xs:documentation>Tipo definido para expresar importes numéricos con fracción hasta seis decimales</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="6"/>
+			<xs:whiteSpace value="collapse"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

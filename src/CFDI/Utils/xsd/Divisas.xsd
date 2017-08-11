@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:divisas="http://www.sat.gob.mx/divisas" targetNamespace="http://www.sat.gob.mx/divisas" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Divisas">
+		<xs:annotation>
+			<xs:documentation>Complemento al Comprobante Fiscal Digital (CFD) y Comprobante Fiscal Digital por Internet (CFDI) para identificar las operaciones de compra y  venta de divisas que realizan los centros cambiarios y las casa de cambio; haciendo mención expresa de que los comprobantes se expiden por la “compra”, o bien, por la “venta” de divisas.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="version" type="xs:string" use="required" fixed="1.0">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar la versión del complemento de divisas</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="tipoOperacion" use="required">
+				<xs:annotation>
+					<xs:documentation>Elemento para definir el tipo de operación realizada. venta o compra de divisas</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="compra"/>
+						<xs:enumeration value="venta"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:operacionesconderivados="http://www.sat.gob.mx/esquemas/retencionpago/1/operacionesconderivados" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.sat.gob.mx/esquemas/retencionpago/1/operacionesconderivados" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Operacionesconderivados">
+		<xs:annotation>
+			<xs:documentation>Complemento para incorporar información de las Operaciones Financieras Derivadas de Capital.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Version" use="required" fixed="1.0">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido con valor prefijado que indica la versión del complemento de las operaciones financieras derivadas de capital.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="MontGanAcum" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar el monto de la ganancia acumulable.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="operacionesconderivados:t_Importe"/>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="MontPerdDed" type="operacionesconderivados:t_Importe" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar el monto de la pérdida deducible.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="t_Importe">
+		<xs:annotation>
+			<xs:documentation>Tipo definido para expresar importes numéricos con fracción hasta seis decimales</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="6"/>
+			<xs:whiteSpace value="collapse"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
