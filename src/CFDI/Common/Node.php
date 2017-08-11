@@ -104,7 +104,19 @@ class Node
     {
         if (!is_null($attr)) {
             foreach ($attr as $key => $value) {
-                $element->setAttribute($key, $value);
+                $value = preg_replace('/\s+/', ' ', $value); // Regla 5a y 5c
+                $value = trim($value); // Regla 5b
+                if (strlen($value) > 0) { // Regla 6
+                    $value = str_replace("|", "/", $value); // Regla 1
+
+                    $value = str_replace('&', '&amp;', $value);
+                    $value = str_replace('<', '&lt;', $value);
+                    $value = str_replace('>', '&gt;', $value);
+                    $value = str_replace('"', '&quot;', $value);
+                    $value = str_replace("'", '&apos;', $value);
+
+                    $element->setAttribute($key, $value);
+                }
             }
         }
     }
