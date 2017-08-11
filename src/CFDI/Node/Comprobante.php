@@ -39,6 +39,8 @@ class Comprobante extends Node
      *
      * @param array   $data
      * @param string  $version
+     *
+     * @return void
      */
     public function __construct($data, $version)
     {
