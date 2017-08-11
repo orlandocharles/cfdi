@@ -108,7 +108,13 @@ class Node
                 $value = trim($value); // Regla 5b
                 if (strlen($value) > 0) { // Regla 6
                     $value = str_replace("|", "/", $value); // Regla 1
-                    $value = str_replace("'", '&apos;', str_replace('"', '&quot;', str_replace('>', '&gt;', str_replace('<', '&lt;', str_replace('&', '&amp;', $value)))));
+
+                    $value = str_replace('&', '&amp;', $value);
+                    $value = str_replace('<', '&lt;', $value);
+                    $value = str_replace('>', '&gt;', $value);
+                    $value = str_replace('"', '&quot;', $value);
+                    $value = str_replace("'", '&apos;', $value);
+
                     $element->setAttribute($key, $value);
                 }
             }
