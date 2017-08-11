@@ -62,8 +62,6 @@ class Node
     }
 
     /**
-     * FIXME: Find a better way to add the nodes.
-     *
      * Add a new node
      *
      * @return void
@@ -116,12 +114,12 @@ class Node
     }
 
     /**
-     *
+     * Search the direct child of an element
      *
      * @param DOMNodeList   $childs
      * @param string        $find
      *
-     *
+     * @return DOMElement|null
      */
     protected function getDirectChildElementByName(DOMNodeList $childs, $find)
     {
@@ -130,12 +128,11 @@ class Node
                 return $child;
             }
         }
-
         return null;
     }
 
     /**
-     *
+     * Adds attributes to an element
      *
      * @param DOMElement    $element
      * @param array         $attr
