@@ -13,6 +13,7 @@ namespace Charles\CFDI\Common;
 
 use DOMDocument;
 use DOMElement;
+use DOMNodeList;
 
 /**
  * This is the node class.
@@ -61,37 +62,76 @@ class Node
     }
 
     /**
+     * FIXME: Find a better way to add the nodes.
      *
+     * Add a new node
      *
      * @return void
      */
     public function add($node)
     {
+        $wrapperElement = null;
+
         $nodeElement = $this->document->createElement($node->getNodeName());
         $this->setAtributes($nodeElement, $node->getAttr());
-
-        if ($parentName = $node->getParentNodeName()) {
-            $parentNode = $this->document->getElementsByTagName($parentName);
-
-            if ($parentNode->length == 0) {
-                $parentElement = $this->document->createElement($parentName);
-                $this->element->appendChild($parentElement);
-                $parentElement->appendChild($nodeElement);
-                $this->setAtributes($parentElement, $node->getAttr('parent'));
-
-            } else {
-                $parentNode->item(0)->appendChild($nodeElement);
-            }
-
-        } else {
-            $this->element->appendChild($nodeElement);
-        }
 
         foreach ($node->element->childNodes as $child) {
             $nodeElement->appendChild(
                 $this->document->importNode($child, true)
             );
         }
+
+        if ($wrapperName = $node->getWrapperNodeName()) {
+            $wrapperElement = $this->getDirectChildElementByName(
+                $this->element->childNodes, $wrapperName
+            );
+
+            if (!$wrapperElement) {
+                $wrapperElement = $this->document->createElement($wrapperName);
+                $this->element->appendChild($wrapperElement);
+                $this->setAtributes($wrapperElement, $node->getAttr('wrapper'));
+            }
+        }
+
+        if ($parentName = $node->getParentNodeName()) {
+            $currentElement = ($wrapperElement) ? $wrapperElement : $this->element ;
+
+            $parentNode = $this->getDirectChildElementByName(
+                $currentElement->childNodes, $parentName
+            );
+
+            if (!$parentNode) {
+                $parentElement = $this->document->createElement($parentName);
+                $currentElement->appendChild($parentElement);
+                $parentElement->appendChild($nodeElement);
+                $this->setAtributes($parentElement, $node->getAttr('parent'));
+
+            } else {
+                $parentNode->appendChild($nodeElement);
+            }
+
+        } else {
+            $this->element->appendChild($nodeElement);
+        }
+    }
+
+    /**
+     *
+     *
+     * @param DOMNodeList   $childs
+     * @param string        $find
+     *
+     *
+     */
+    protected function getDirectChildElementByName(DOMNodeList $childs, $find)
+    {
+        foreach ($childs as $child) {
+            if ($child->nodeName == $find) {
+                return $child;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -99,6 +139,8 @@ class Node
      *
      * @param DOMElement    $element
      * @param array         $attr
+     *
+     * @return void
      */
     public function setAtributes(DOMElement $element, $attr)
     {
@@ -110,7 +152,7 @@ class Node
     }
 
     /**
-     * Get the element.
+     * Get element.
      *
      * @return \DOMElement
      */
@@ -120,7 +162,7 @@ class Node
     }
 
     /**
-     * Get the document.
+     * Get document.
      *
      * @return \DOMElement
      */
@@ -130,7 +172,7 @@ class Node
     }
 
     /**
-     * Get the node attributes.
+     * Get node attributes.
      *
      * @param string    $index
      *
@@ -150,7 +192,17 @@ class Node
     }
 
     /**
-     * Get the parent node name.
+     * Get wrapper node name.
+     *
+     * @return string|null
+     */
+    public function getWrapperNodeName()
+    {
+        return (isset($this->wrapperNodeName)) ? $this->wrapperNodeName : null;
+    }
+
+    /**
+     * Get parent node name.
      *
      * @return string|null
      */
@@ -160,7 +212,7 @@ class Node
     }
 
     /**
-     * Get the node name.
+     * Get node name.
      *
      * @return string
      */

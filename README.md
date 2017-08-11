@@ -24,7 +24,7 @@ composer require orlandocharles/cfdi
 - [Emisor](#emisor)
 - [Receptor](#receptor)
 - [Concepto](#concepto)
-- [Impuestos](#concepto) (dev)
+- [Impuestos](#concepto)
   - [Traslado](#traslado)
     - [Traslado en comprobante](#traslado-en-comprobante)
     - [Traslado en concepto](#traslado-en-concepto)
@@ -170,7 +170,7 @@ $cfdi->add(new Concepto([
 </cfdi:Conceptos>
 ```
 
-### Impuestos (dev)
+### Impuestos
 
 #### Retención
 
