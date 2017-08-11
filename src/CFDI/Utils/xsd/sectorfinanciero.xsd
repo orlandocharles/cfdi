@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:sectorfinanciero="http://www.sat.gob.mx/esquemas/retencionpago/1/sectorfinanciero" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.sat.gob.mx/esquemas/retencionpago/1/sectorfinanciero" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="SectorFinanciero">
+		<xs:annotation>
+			<xs:documentation>Complemento requerido para uso exclusivo de las entidades integrantes del sistema financiero que actúen en su carácter de fiduciarias</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Version" use="required" fixed="1.0">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido con valor prefijado que indica la versión del complemento sector financiero</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="IdFideicom" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar el Identificador o Número del Fideicomiso</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="NomFideicom" use="optional">
+				<xs:annotation>
+					<xs:documentation>Atributo opcional para expresar el Nombre del Fideicomiso</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="DescripFideicom" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar el objeto o fin del Fideicomiso</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="300"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:arrendamientoenfideicomiso="http://www.sat.gob.mx/esquemas/retencionpago/1/arrendamientoenfideicomiso" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.sat.gob.mx/esquemas/retencionpago/1/arrendamientoenfideicomiso" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Arrendamientoenfideicomiso">
+		<xs:annotation>
+			<xs:documentation>Complemento para  expresar el arrendamiento de bienes de un periodo o ejercicio determinado (incluye FIBRAS).</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Version" use="required" fixed="1.0">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido con valor prefijado que indica la versión del complemento de arrendamiento financiero</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="PagProvEfecPorFiduc" type="arrendamientoenfideicomiso:t_Importe" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar el importe del  pago efectuado por parte del fiduciario al arrendador de bienes en el periodo</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="RendimFideicom" type="arrendamientoenfideicomiso:t_Importe" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar el importe de  los rendimientos obtenidos en el periodo por el arrendamiento de bienes </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="DeduccCorresp" type="arrendamientoenfideicomiso:t_Importe" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar el importe de las deducciones correspondientes al arrendamiento de los bienes durante el periodo</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="MontTotRet" type="arrendamientoenfideicomiso:t_Importe" use="optional">
+				<xs:annotation>
+					<xs:documentation>Atributo opcional para expresar el monto total de la retención del arrendamiento de los bienes del periodo</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="MontResFiscDistFibras" type="arrendamientoenfideicomiso:t_Importe" use="optional">
+				<xs:annotation>
+					<xs:documentation>Atributo opcional para expresar el monto del resultado fiscal distribuido por FIBRAS</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="MontOtrosConceptDistr" type="arrendamientoenfideicomiso:t_Importe" use="optional">
+				<xs:annotation>
+					<xs:documentation>Atributo opcional para expresar el monto de otros conceptos distribuidos </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="DescrMontOtrosConceptDistr" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Atributo opcional para describir los conceptos distribuidos cuando se señalen otros conceptos.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="t_Importe">
+		<xs:annotation>
+			<xs:documentation>Tipo definido para expresar importes numéricos con fracción hasta seis decimales</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="6"/>
+			<xs:whiteSpace value="collapse"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

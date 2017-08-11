@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:planesderetiro="http://www.sat.gob.mx/esquemas/retencionpago/1/planesderetiro" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.sat.gob.mx/esquemas/retencionpago/1/planesderetiro" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Planesderetiro">
+		<xs:annotation>
+			<xs:documentation>Complemento para expresar la información sobre los planes personales de retiro</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Version" use="required" fixed="1.0">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido con valor prefijado que indica la versión del complemento de planes personales de retiro</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="SistemaFinanc" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar si los planes personales de retiro son del sistema financiero</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"/>
+						<xs:enumeration value="SI"/>
+						<xs:enumeration value="NO"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="MontTotAportAnioInmAnterior" type="planesderetiro:t_Importe" use="optional">
+				<xs:annotation>
+					<xs:documentation>Atributo opcional que expresa el monto total de las aportaciones actualizadas en el año inmediato anterior de los planes personales de retiro</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="MontIntRealesDevengAniooInmAnt" type="planesderetiro:t_Importe" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar el  monto de los intereses reales devengados o percibidos durante el año inmediato anterior de los planes personales de retiro</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="HuboRetirosAnioInmAntPer" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar si se realizaron retiros de recursos invertidos y sus rendimientos en el ejercicio inmediato anterior antes de cumplir los requisitos de permanencia </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"/>
+						<xs:enumeration value="SI"/>
+						<xs:enumeration value="NO"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="MontTotRetiradoAnioInmAntPer" type="planesderetiro:t_Importe" use="optional">
+				<xs:annotation>
+					<xs:documentation>Atributo opcional que expresa el monto total del retiro realizado antes de cumplir con los requisitos de permanencia</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="MontTotExentRetiradoAnioInmAnt" type="planesderetiro:t_Importe" use="optional">
+				<xs:annotation>
+					<xs:documentation>Atributo opcional que expresa el  monto total exento del retiro realizado en el ejercicio inmediato anterior</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="MontTotExedenteAnioInmAnt" type="planesderetiro:t_Importe" use="optional">
+				<xs:annotation>
+					<xs:documentation>Atributo opcional que expresa  el monto total excedente del monto exento del retiro realizado en el ejercicio inmediato anterior</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="HuboRetirosAnioInmAnt" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido que expresa si se realizaron retiros en el ejercicio inmediato anterior</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="SI"/>
+						<xs:enumeration value="NO"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="MontTotRetiradoAnioInmAnt" type="planesderetiro:t_Importe" use="optional">
+				<xs:annotation>
+					<xs:documentation>Atributo opcional que expresa el monto total del retiro realizado en el ejercicio inmediato anterior</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="t_Importe">
+		<xs:annotation>
+			<xs:documentation>Tipo definido para expresar importes numéricos con fracción hasta seis decimales</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="6"/>
+			<xs:whiteSpace value="collapse"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

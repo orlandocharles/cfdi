@@ -28,7 +28,7 @@ class CFDI
      *
      * @var string
      */
-    const XSL_ENDPOINT = 'http://www.sat.gob.mx/sitio_internet/cfd/3/cadenaoriginal_3_3/cadenaoriginal_3_3.xslt';
+    const XSL_ENDPOINT = __DIR__ . '/Utils/xslt/cadenaoriginal_3_3.xslt';
 
     /**
      * CFDI version.

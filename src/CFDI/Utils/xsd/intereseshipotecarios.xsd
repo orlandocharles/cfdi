@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:intereseshipotecarios="http://www.sat.gob.mx/esquemas/retencionpago/1/intereseshipotecarios" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.sat.gob.mx/esquemas/retencionpago/1/intereseshipotecarios" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Intereseshipotecarios">
+		<xs:annotation>
+			<xs:documentation>Complemento para expresar la información sobre  Intereses reales deducibles por crédito hipotecarios</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Version" use="required" fixed="1.0">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido con valor prefijado que indica la versión del complemento de intereses reales deducibles por crédito hipotecarios</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="CreditoDeInstFinanc" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar si el  crédito otorgado fue por institución financiera </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"/>
+						<xs:enumeration value="SI"/>
+						<xs:enumeration value="NO"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="SaldoInsoluto" type="intereseshipotecarios:t_Importe" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar el  saldo insoluto al 31 de diciembre del ejercicio inmediato anterior o fecha de contratación si se llevo a cabo en el ejercicio en curso</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="PropDeducDelCredit" type="intereseshipotecarios:t_Importe" use="optional">
+				<xs:annotation>
+					<xs:documentation>Atributo opcional que expresa la proporción deducible del crédito aplicable sobre los intereses reales devengados y pagados</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="MontTotIntNominalesDev" type="intereseshipotecarios:t_Importe" use="optional">
+				<xs:annotation>
+					<xs:documentation>Atributo opcional que expresa el monto total de intereses nominales devengados </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="MontTotIntNominalesDevYPag" type="intereseshipotecarios:t_Importe" use="optional">
+				<xs:annotation>
+					<xs:documentation>Atributo opcional que expresa el monto total de intereses nominales devengados y pagados</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="MontTotIntRealPagDeduc" type="intereseshipotecarios:t_Importe" use="optional">
+				<xs:annotation>
+					<xs:documentation>Atributo opcional que expresa el monto total de intereses reales pagados deducibles </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="NumContrato" use="optional">
+				<xs:annotation>
+					<xs:documentation>Atributo opcional que expresa el número de contrato del crédito hipotecario</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="300"/>
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="t_Importe">
+		<xs:annotation>
+			<xs:documentation>Tipo definido para expresar importes numéricos con fracción hasta seis decimales</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="6"/>
+			<xs:whiteSpace value="collapse"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

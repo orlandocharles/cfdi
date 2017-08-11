@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:retenciones="http://www.sat.gob.mx/esquemas/retencionpago/1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:c_retenciones="http://www.sat.gob.mx/esquemas/retencionpago/1/catalogos" targetNamespace="http://www.sat.gob.mx/esquemas/retencionpago/1" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.sat.gob.mx/esquemas/retencionpago/1/catalogos" schemaLocation="catRetenciones.xsd"/>
+    <xs:import namespace="http://www.sat.gob.mx/TimbreFiscalDigital" schemaLocation="TimbreFiscalDigital.xsd"/>
+    <xs:import namespace="http://www.sat.gob.mx/esquemas/retencionpago/1/intereseshipotecarios" schemaLocation="intereseshipotecarios.xsd"/>
+    <xs:import namespace="http://www.sat.gob.mx/esquemas/retencionpago/1/arrendamintoenfideicomiso" schemaLocation="arrendamientoenfideicomiso.xsd"/>
+    <xs:import namespace="http://www.sat.gob.mx/esquemas/retencionpago/1/operacionesconderivados" schemaLocation="operacionesconderivados.xsd"/>
+    <xs:import namespace="http://www.sat.gob.mx/esquemas/retencionpago/1/pagosaextranjeros" schemaLocation="pagosaextranjeros.xsd"/>
+    <xs:import namespace="http://www.sat.gob.mx/esquemas/retencionpago/1/dividendos" schemaLocation="dividendos.xsd"/>
+    <xs:import namespace="http://www.sat.gob.mx/esquemas/retencionpago/1/planesderetiro" schemaLocation="planesderetiro.xsd"/>
+    <xs:import namespace="http://www.sat.gob.mx/esquemas/retencionpago/1/ejajenaciondeacciones" schemaLocation="enajenaciondeacciones.xsd"/>
+    <xs:import namespace="http://www.sat.gob.mx/esquemas/retencionpago/1/premios" schemaLocation="premios.xsd"/>
+    <xs:import namespace="http://www.sat.gob.mx/esquemas/retencionpago/1/fideicomisonoempresarial" schemaLocation="fideicomisonoempresarial.xsd"/>
+    <xs:import namespace="http://www.sat.gob.mx/esquemas/retencionpago/1/intereses" schemaLocation="intereses.xsd"/>
+    <xs:import namespace="http://www.sat.gob.mx/esquemas/retencionpago/1/sectorfinanciero" schemaLocation="sectorfinanciero.xsd"/>
+	<xs:element name="Retenciones">
+		<xs:annotation>
+			<xs:documentation>Estándar de Documento Electrónico Retenciones e Información de Pagos.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Emisor">
+					<xs:annotation>
+						<xs:documentation>Nodo requerido para expresar la información del contribuyente emisor del documento electrónico de retenciones e información de pagos.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attribute name="RFCEmisor" type="retenciones:t_RFC" use="required">
+							<xs:annotation>
+								<xs:documentation>Atributo requerido para incorporar la clave en el Registro Federal de Contribuyentes correspondiente al contribuyente emisor del documento de retención e información de pagos, sin guiones o espacios.</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="NomDenRazSocE" use="optional">
+							<xs:annotation>
+								<xs:documentation>Atributo opcional para el nombre, denominación o razón social del contribuyente emisor del documento de retención e información de pagos.</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+									<xs:maxLength value="300"/>
+									<xs:whiteSpace value="collapse"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="CURPE" type="retenciones:t_CURP" use="optional">
+							<xs:annotation>
+								<xs:documentation>Atributo opcional para la Clave Única del Registro Poblacional del contribuyente emisor del documento de retención e información de pagos.</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Receptor">
+					<xs:annotation>
+						<xs:documentation>Nodo requerido para expresar la información del contribuyente receptor del documento electrónico de retenciones e información de pagos.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:choice>
+							<xs:element name="Nacional">
+								<xs:annotation>
+									<xs:documentation>Nodo requerido para expresar la información del contribuyente receptor en caso de que sea de nacionalidad mexicana</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:attribute name="RFCRecep" use="required">
+										<xs:annotation>
+											<xs:documentation>Atributo requerido para la clave del Registro Federal de Contribuyentes correspondiente al contribuyente receptor del documento.</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="retenciones:t_RFC"/>
+										</xs:simpleType>
+									</xs:attribute>
+									<xs:attribute name="NomDenRazSocR" use="optional">
+										<xs:annotation>
+											<xs:documentation>Atributo opcional para el nombre, denominación o razón social del contribuyente receptor del documento.</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:minLength value="1"/>
+												<xs:maxLength value="300"/>
+												<xs:whiteSpace value="collapse"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+									<xs:attribute name="CURPR" type="retenciones:t_CURP" use="optional">
+										<xs:annotation>
+											<xs:documentation>Atributo opcional para la Clave Única del Registro Poblacional del contribuyente receptor del documento.</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Extranjero">
+								<xs:annotation>
+									<xs:documentation>Nodo requerido para expresar la información del contribuyente receptor del documento cuando sea residente en el extranjero</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:attribute name="NumRegIdTrib" use="optional">
+										<xs:annotation>
+											<xs:documentation>Atributo opcional para expresar el número de registro de identificación fiscal del receptor del documento cuando sea residente en el extranjero</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:minLength value="1"/>
+												<xs:maxLength value="20"/>
+												<xs:whiteSpace value="collapse"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+									<xs:attribute name="NomDenRazSocR" use="required">
+										<xs:annotation>
+											<xs:documentation>Atributo requerido para expresar el nombre, denominación o razón social del receptor del documento cuando sea residente en el extranjero</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:minLength value="1"/>
+												<xs:maxLength value="300"/>
+												<xs:whiteSpace value="collapse"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+						<xs:attribute name="Nacionalidad" use="required">
+							<xs:annotation>
+								<xs:documentation>Atributo requerido para expresar la nacionalidad del receptor del documento.</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:whiteSpace value="collapse"/>
+									<xs:enumeration value="Nacional">
+										<xs:annotation>
+											<xs:documentation>Nacionalidad Mexicana</xs:documentation>
+										</xs:annotation>
+									</xs:enumeration>
+									<xs:enumeration value="Extranjero">
+										<xs:annotation>
+											<xs:documentation>Procedente de otro pais</xs:documentation>
+										</xs:annotation>
+									</xs:enumeration>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Periodo">
+					<xs:annotation>
+						<xs:documentation>Nodo requerido para expresar el periodo que ampara el documento de retenciones e información de pagos</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attribute name="MesIni" use="required">
+							<xs:annotation>
+								<xs:documentation>Atributo requerido para la expresión del mes inicial del periodo de la retención e información de pagos</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:int">
+									<xs:minInclusive value="1"/>
+									<xs:maxInclusive value="12"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="MesFin" use="required">
+							<xs:annotation>
+								<xs:documentation>Atributo requerido para la expresión del mes final del periodo de la retención e información de pagos</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:int">
+									<xs:minInclusive value="1"/>
+									<xs:maxInclusive value="12"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+						<xs:attribute name="Ejerc" use="required">
+							<xs:annotation>
+								<xs:documentation>Atributo requerido para la expresión del ejercicio fiscal (año) </xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:int">
+									<xs:minInclusive value="2004"/>
+									<xs:maxInclusive value="2024"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Totales">
+					<xs:annotation>
+						<xs:documentation>Nodo requerido para expresar el total de las retenciones e información de pagos efectuados en el período que ampara el documento.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ImpRetenidos" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Nodo opcional para expresar el total de los impuestos retenidos que se desprenden de los conceptos expresados en el documento de retenciones e información de pagos.</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:attribute name="BaseRet" type="retenciones:t_Importe" use="optional">
+										<xs:annotation>
+											<xs:documentation>Atributo opcional para expresar la  base del impuesto, que puede ser la diferencia entre los ingresos percibidos y las deducciones autorizadas</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+									<xs:attribute name="Impuesto" use="optional">
+										<xs:annotation>
+											<xs:documentation>Atributo opcional para señalar el tipo de impuesto retenido del periodo o ejercicio conforme al catálogo.</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="c_retenciones:c_TipoImpuesto"/>
+										</xs:simpleType>
+									</xs:attribute>
+									<xs:attribute name="montoRet" type="retenciones:t_Importe" use="required">
+										<xs:annotation>
+											<xs:documentation>Atributo requerido para expresar el importe del impuesto retenido en el periodo o ejercicio</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+									<xs:attribute name="TipoPagoRet" use="required">
+										<xs:annotation>
+											<xs:documentation>Atributo requerido para precisar si el monto de la retención es considerado pago definitivo o pago provisional</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:whiteSpace value="collapse"/>
+												<xs:enumeration value="Pago definitivo">
+													<xs:annotation>
+														<xs:documentation>Pago definitivo</xs:documentation>
+													</xs:annotation>
+												</xs:enumeration>
+												<xs:enumeration value="Pago provisional">
+													<xs:annotation>
+														<xs:documentation>Pago provisional</xs:documentation>
+													</xs:annotation>
+												</xs:enumeration>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="montoTotOperacion" type="retenciones:t_Importe" use="required">
+							<xs:annotation>
+								<xs:documentation>Atributo requerido para expresar  el total del monto de la operación  que se relaciona en el comprobante </xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="montoTotGrav" type="retenciones:t_Importe" use="required">
+							<xs:annotation>
+								<xs:documentation>Atributo requerido para expresar el total del monto gravado de la operación  que se relaciona en el comprobante.</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="montoTotExent" type="retenciones:t_Importe" use="required">
+							<xs:annotation>
+								<xs:documentation>Atributo requerido para expresar el total del monto exento de la operación  que se relaciona en el comprobante.</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="montoTotRet" type="retenciones:t_Importe" use="required">
+							<xs:annotation>
+								<xs:documentation>Atributo requerido para expresar el monto total de las retenciones. Sumatoria de los montos de retención del nodo ImpRetenidos.</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Complemento" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Nodo opcional donde se incluirá el complemento Timbre Fiscal Digital de manera obligatoria y los nodos complementarios determinados por el SAT, de acuerdo a las disposiciones particulares a un sector o actividad específica.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:any minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Addenda" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Nodo opcional para recibir las extensiones al formato que sean de utilidad al contribuyente. Para las reglas de uso del mismo, referirse al formato de origen.
+
+</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:any minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Version" use="required" fixed="1.0">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido con valor prefijado que indica la versión del estándar bajo el que se encuentra expresada la retención y/o comprobante de información de pagos.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="FolioInt" use="optional">
+				<xs:annotation>
+					<xs:documentation>Atributo opcional para control interno del contribuyente que expresa el folio del documento que ampara la retención e información de pagos. Permite números y/o letras.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="20"/>
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="Sello" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para contener el sello digital del documento de retención e información de pagos. El sello deberá ser expresado como una cadena de texto en formato base 64.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="NumCert" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar el número de serie del certificado de sello digital con el que se selló digitalmente el documento de la retención e información de pagos.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="20"/>
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="Cert" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido que sirve para incorporar el certificado de sello digital que ampara el documento de retención e información de pagos como texto, en formato base 64.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="FechaExp" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para la expresión de la fecha y hora de expedición del documento de retención e información de pagos. Se expresa en la forma yyyy-mm-ddThh:mm:ssTZD-6, de acuerdo con la especificación ISO 8601.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:dateTime">
+						<xs:whiteSpace value="collapse"/>
+						<xs:minInclusive value="2014-01-01T00:00:00-06:00"/>
+						<xs:pattern value="-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="CveRetenc" type="c_retenciones:c_Retenciones" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar la clave de la retención e información de pagos de acuerdo al catálogo publicado en internet por el SAT.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="DescRetenc" use="optional">
+				<xs:annotation>
+					<xs:documentation>Atributo opcional que expresa la descripción de la retención e información de pagos en caso de que en el atributo CveRetenc se haya elegido el valor para 'otro tipo de retenciones'</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="100"/>
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="t_RFC">
+		<xs:annotation>
+			<xs:documentation>Tipo definido para expresar claves del Registro Federal de Contribuyentes</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="12"/>
+			<xs:maxLength value="13"/>
+			<xs:whiteSpace value="collapse"/>
+			<xs:pattern value="[A-Z,Ñ,&amp;]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Z,0-9][A-Z,0-9][0-9,A-Z]"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_Importe">
+		<xs:annotation>
+			<xs:documentation>Tipo definido para expresar importes numéricos con fracción hasta seis decimales</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="6"/>
+			<xs:whiteSpace value="collapse"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_CURP">
+		<xs:annotation>
+			<xs:documentation>Tipo definido para la expresión de una CURP</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="collapse"/>
+			<xs:length value="18"/>
+			<xs:pattern value="[A-Z][A,E,I,O,U,X][A-Z]{2}[0-9]{2}[0-1][0-9][0-3][0-9][M,H][A-Z]{2}[B,C,D,F,G,H,J,K,L,M,N,Ñ,P,Q,R,S,T,V,W,X,Y,Z]{3}[0-9,A-Z][0-9]"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
