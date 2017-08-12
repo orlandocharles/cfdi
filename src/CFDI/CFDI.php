@@ -64,6 +64,8 @@ class CFDI
      * @param array     $data
      * @param string    $key
      * @param string    $cer
+     *
+     * @return void
      */
     public function __construct($data, $cer, $key)
     {
@@ -77,7 +79,7 @@ class CFDI
      *
      * @param $node
      *
-     * @return $this
+     * @return void
      */
     public function add($node)
     {
@@ -85,7 +87,7 @@ class CFDI
     }
 
     /**
-     *
+     * Gets the original string
      *
      * @return string
      */
@@ -104,11 +106,11 @@ class CFDI
     }
 
     /**
-     *
+     * Get sello
      *
      * @return string
      */
-    public function getSello()
+    protected function getSello()
     {
         $pkey = openssl_get_privatekey($this->key);
         openssl_sign($this->getCadenaOriginal(), $signature, $pkey, OPENSSL_ALGO_SHA256);
@@ -117,7 +119,7 @@ class CFDI
     }
 
     /**
-     *
+     * Put the stamp on the voucher
      *
      * @return void
      */
@@ -131,10 +133,38 @@ class CFDI
     }
 
     /**
+     * Get Certificado
      *
+     * @return string
+     */
+    protected function getCertificado()
+    {
+        $cer = preg_replace('/(-+[^-]+-+)/', '', $this->cer);
+        $cer = preg_replace('/\s+/', '', $cer);
+        return $cer;
+    }
+
+    /**
+     * Put the certificate on the voucher
+     *
+     * @return void
+     */
+    protected function putCertificado()
+    {
+        $this->comprobante->setAtributes(
+            $this->comprobante->getElement(), [
+                'Certificado' => $this->getCertificado()
+            ]
+        );
+    }
+
+    /**
+     * Save the voucher
      *
      * @param string    $path
      * @param string    $name
+     *
+     * @return void
      */
     public function save($path, $name)
     {
