@@ -70,7 +70,7 @@ class Node
     /**
      * Add a new node
      *
-     * @return void
+     * @param Node $node
      */
     public function add($node)
     {
