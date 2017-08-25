@@ -13,7 +13,6 @@ namespace Charles\CFDI;
 
 use Charles\CFDI\Node\Comprobante;
 use DOMDocument;
-use DOMElement;
 use XSLTProcessor;
 
 /**
