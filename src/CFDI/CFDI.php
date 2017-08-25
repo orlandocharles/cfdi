@@ -123,7 +123,8 @@ class CFDI
     protected function putSello()
     {
         $this->comprobante->setAtributes(
-            $this->comprobante->getElement(), [
+            $this->comprobante->getElement(),
+            [
                 'Sello' => $this->getSello()
             ]
         );
@@ -149,7 +150,8 @@ class CFDI
     protected function putCertificado()
     {
         $this->comprobante->setAtributes(
-            $this->comprobante->getElement(), [
+            $this->comprobante->getElement(),
+            [
                 'Certificado' => $this->getCertificado()
             ]
         );

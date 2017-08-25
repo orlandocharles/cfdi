@@ -87,7 +87,8 @@ class Node
 
         if ($wrapperName = $node->getWrapperNodeName()) {
             $wrapperElement = $this->getDirectChildElementByName(
-                $this->element->childNodes, $wrapperName
+                $this->element->childNodes,
+                $wrapperName
             );
 
             if (!$wrapperElement) {
@@ -101,7 +102,8 @@ class Node
             $currentElement = ($wrapperElement) ? $wrapperElement : $this->element ;
 
             $parentNode = $this->getDirectChildElementByName(
-                $currentElement->childNodes, $parentName
+                $currentElement->childNodes,
+                $parentName
             );
 
             if (!$parentNode) {
@@ -109,11 +111,9 @@ class Node
                 $currentElement->appendChild($parentElement);
                 $parentElement->appendChild($nodeElement);
                 $this->setAtributes($parentElement, $node->getAttr('parent'));
-
             } else {
                 $parentNode->appendChild($nodeElement);
             }
-
         } else {
             $this->element->appendChild($nodeElement);
         }
