@@ -64,8 +64,6 @@ class CFDI
      * @param array     $data
      * @param string    $key
      * @param string    $cer
-     *
-     * @return void
      */
     public function __construct($data, $cer, $key)
     {
