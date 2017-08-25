@@ -167,7 +167,7 @@ class Node
     /**
      * Get document.
      *
-     * @return \DOMElement
+     * @return \DOMDocument
      */
     public function getDocument()
     {
