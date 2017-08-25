@@ -29,6 +29,12 @@ class Node
     protected $nodeName = '';
 
     /**
+     * Define the parent node name, rename this attribute in inherit class
+     * @var string|null
+     */
+    protected $parentNodeName = null;
+
+    /**
      * Node document.
      *
      * @var \DOMDocument
@@ -211,7 +217,7 @@ class Node
      */
     public function getParentNodeName()
     {
-        return (isset($this->parentNodeName)) ? $this->parentNodeName : null;
+        return $this->parentNodeName;
     }
 
     /**
