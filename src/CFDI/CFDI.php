@@ -159,7 +159,7 @@ class CFDI
     /**
      * Returns the xml with the stamp and certificate attributes.
      *
-     * @return
+     * @return DOMDocument
      */
     protected function xml()
     {
