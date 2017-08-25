@@ -23,6 +23,12 @@ use DOMNodeList;
 class Node
 {
     /**
+     * Define the node name
+     * @var string
+     */
+    protected $nodeName = '';
+
+    /**
      * Node document.
      *
      * @var \DOMDocument
@@ -215,6 +221,9 @@ class Node
      */
     public function getNodeName()
     {
+        if (! is_string($this->nodeName) || '' === $this->nodeName) {
+            throw new \LogicException('El nodo de la clase ' . get_class($this) . ' no tiene nombre de nodo');
+        }
         return $this->nodeName;
     }
 }
