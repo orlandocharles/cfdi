@@ -54,7 +54,7 @@ class CFDI
     /**
      * Comprobante instance.
      *
-     * @var \Charles\CFDI\Comprobante
+     * @var Comprobante
      */
     protected $comprobante;
 
