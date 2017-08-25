@@ -37,14 +37,14 @@ class Node
     /**
      * Node document.
      *
-     * @var \DOMDocument
+     * @var DOMDocument
      */
     protected $document;
 
     /**
      * Node element.
      *
-     * @var \DOMElement
+     * @var DOMElement
      */
     protected $element;
 
@@ -163,7 +163,7 @@ class Node
     /**
      * Get element.
      *
-     * @return \DOMElement
+     * @return DOMElement
      */
     public function getElement()
     {
@@ -173,7 +173,7 @@ class Node
     /**
      * Get document.
      *
-     * @return \DOMDocument
+     * @return DOMDocument
      */
     public function getDocument()
     {
