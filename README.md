@@ -1,6 +1,6 @@
 # Comprobante Fiscal Digital por Internet (CFDI v3.3)
 
-[![Latest Stable Version](https://poser.pugx.org/orlandocharles/cfdi/version?format=flat-square)](https://packagist.org/packages/orlandocharles/cfdi) [![Latest Unstable Version](https://poser.pugx.org/orlandocharles/cfdi/v/unstable?format=flat-square)](//packagist.org/packages/orlandocharles/cfdi) [![License](https://img.shields.io/github/license/orlandocharles/cfdi.svg?style=flat-square)](https://packagist.org/packages/orlandocharles/cfdi) [![Donate](https://img.shields.io/badge/Donate-PayPal-3b7bbf.svg?style=flat-square)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=H2KAFWPGPMKHJ)
+[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square)](https://gitter.im/orlandocharles/cfdi) [![License](https://img.shields.io/github/license/orlandocharles/cfdi.svg?style=flat-square)](https://packagist.org/packages/orlandocharles/cfdi) [![Donate](https://img.shields.io/badge/Donate-PayPal-3b7bbf.svg?style=flat-square)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=H2KAFWPGPMKHJ)
 
 - [Instalación](#instalación)
 - [Uso](#uso)
