@@ -13,7 +13,6 @@ namespace Charles\CFDI;
 
 use Charles\CFDI\Node\Comprobante;
 use DOMDocument;
-use DOMElement;
 use XSLTProcessor;
 
 /**
@@ -54,7 +53,7 @@ class CFDI
     /**
      * Comprobante instance.
      *
-     * @var \Charles\CFDI\Comprobante
+     * @var Comprobante
      */
     protected $comprobante;
 
@@ -64,8 +63,6 @@ class CFDI
      * @param array     $data
      * @param string    $key
      * @param string    $cer
-     *
-     * @return void
      */
     public function __construct($data, $cer, $key)
     {
@@ -126,7 +123,8 @@ class CFDI
     protected function putSello()
     {
         $this->comprobante->setAtributes(
-            $this->comprobante->getElement(), [
+            $this->comprobante->getElement(),
+            [
                 'Sello' => $this->getSello()
             ]
         );
@@ -152,7 +150,8 @@ class CFDI
     protected function putCertificado()
     {
         $this->comprobante->setAtributes(
-            $this->comprobante->getElement(), [
+            $this->comprobante->getElement(),
+            [
                 'Certificado' => $this->getCertificado()
             ]
         );
@@ -161,7 +160,7 @@ class CFDI
     /**
      * Returns the xml with the stamp and certificate attributes.
      *
-     * @return
+     * @return DOMDocument
      */
     protected function xml()
     {

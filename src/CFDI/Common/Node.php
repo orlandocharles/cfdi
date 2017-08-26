@@ -23,16 +23,28 @@ use DOMNodeList;
 class Node
 {
     /**
+     * Define the node name
+     * @var string
+     */
+    protected $nodeName = '';
+
+    /**
+     * Define the parent node name, rename this attribute in inherit class
+     * @var string|null
+     */
+    protected $parentNodeName = null;
+
+    /**
      * Node document.
      *
-     * @var \DOMDocument
+     * @var DOMDocument
      */
     protected $document;
 
     /**
      * Node element.
      *
-     * @var \DOMElement
+     * @var DOMElement
      */
     protected $element;
 
@@ -64,7 +76,7 @@ class Node
     /**
      * Add a new node
      *
-     * @return void
+     * @param Node $node
      */
     public function add($node)
     {
@@ -81,7 +93,8 @@ class Node
 
         if ($wrapperName = $node->getWrapperNodeName()) {
             $wrapperElement = $this->getDirectChildElementByName(
-                $this->element->childNodes, $wrapperName
+                $this->element->childNodes,
+                $wrapperName
             );
 
             if (!$wrapperElement) {
@@ -95,7 +108,8 @@ class Node
             $currentElement = ($wrapperElement) ? $wrapperElement : $this->element ;
 
             $parentNode = $this->getDirectChildElementByName(
-                $currentElement->childNodes, $parentName
+                $currentElement->childNodes,
+                $parentName
             );
 
             if (!$parentNode) {
@@ -103,11 +117,9 @@ class Node
                 $currentElement->appendChild($parentElement);
                 $parentElement->appendChild($nodeElement);
                 $this->setAtributes($parentElement, $node->getAttr('parent'));
-
             } else {
                 $parentNode->appendChild($nodeElement);
             }
-
         } else {
             $this->element->appendChild($nodeElement);
         }
@@ -151,7 +163,7 @@ class Node
     /**
      * Get element.
      *
-     * @return \DOMElement
+     * @return DOMElement
      */
     public function getElement()
     {
@@ -161,7 +173,7 @@ class Node
     /**
      * Get document.
      *
-     * @return \DOMElement
+     * @return DOMDocument
      */
     public function getDocument()
     {
@@ -205,7 +217,7 @@ class Node
      */
     public function getParentNodeName()
     {
-        return (isset($this->parentNodeName)) ? $this->parentNodeName : null;
+        return $this->parentNodeName;
     }
 
     /**
@@ -215,6 +227,9 @@ class Node
      */
     public function getNodeName()
     {
+        if (! is_string($this->nodeName) || '' === $this->nodeName) {
+            throw new \LogicException('El nodo de la clase ' . get_class($this) . ' no tiene nombre de nodo');
+        }
         return $this->nodeName;
     }
 }

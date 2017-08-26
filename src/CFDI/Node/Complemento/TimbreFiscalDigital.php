@@ -11,8 +11,6 @@
 
 namespace Charles\CFDI\Node\Complemento;
 
-use Charles\CFDI\Common\Node;
-
 /**
  * This is the timbre fiscal class.
  *
