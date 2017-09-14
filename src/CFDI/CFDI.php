@@ -51,6 +51,11 @@ class CFDI
     protected $cer;
 
     /**
+     * @var boolean
+     */
+    protected $xslt;
+
+    /**
      * Comprobante instance.
      *
      * @var Comprobante
@@ -63,12 +68,14 @@ class CFDI
      * @param array     $data
      * @param string    $key
      * @param string    $cer
+     * @param boolean   $xslt
      */
-    public function __construct($data, $cer, $key)
+    public function __construct($data, $cer, $key, $xslt = false)
     {
         $this->comprobante = new Comprobante($data, $this->version);
         $this->cer = $cer;
         $this->key = $key;
+        $this->xslt = $xslt;
     }
 
     /**
@@ -91,7 +98,15 @@ class CFDI
     public function getCadenaOriginal()
     {
         $xsl = new DOMDocument();
-        $xsl->load(static::XSL_ENDPOINT);
+
+        if ($this->xslt) {
+            $path = __DIR__.'/Utils/cadenaoriginal_3_3.xslt';
+            $xslt = file_get_contents($path);
+        } else {
+            $xslt = static::XSL_ENDPOINT;
+        }
+
+        $xsl->load($xslt);
 
         $xslt = new XSLTProcessor();
         $xslt->importStyleSheet($xsl);
