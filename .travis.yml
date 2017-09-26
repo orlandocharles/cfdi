@@ -1,0 +1,18 @@
+language: php
+
+sudo: false
+
+php:
+  - 7.0
+
+install:
+  - travis_retry composer install --prefer-dist -n
+
+script: vendor/bin/phpunit
+
+notifications:
+  email:
+    recipients:
+      - me@orlandocharles.com
+    on_success: never
+    on_failure: always
