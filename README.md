@@ -1,6 +1,6 @@
 # Comprobante Fiscal Digital por Internet (CFDI v3.3)
 
-[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square)](https://gitter.im/orlandocharles/cfdi) [![License](https://img.shields.io/github/license/orlandocharles/cfdi.svg?style=flat-square)](https://packagist.org/packages/orlandocharles/cfdi) [![Donate](https://img.shields.io/badge/Donate-PayPal-3b7bbf.svg?style=flat-square)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=H2KAFWPGPMKHJ)
+[![Travis](https://img.shields.io/travis/orlandocharles/cfdi.svg?style=flat-square)](https://travis-ci.org/orlandocharles/cfdi) [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square)](https://gitter.im/orlandocharles/cfdi) [![License](https://img.shields.io/github/license/orlandocharles/cfdi.svg?style=flat-square)](https://packagist.org/packages/orlandocharles/cfdi) [![Donate](https://img.shields.io/badge/Donate-PayPal-3b7bbf.svg?style=flat-square)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=H2KAFWPGPMKHJ)
 
 - [Instalación](#instalación)
 - [Uso](#uso)
@@ -25,13 +25,19 @@ composer require orlandocharles/cfdi
 - [Receptor](#receptor)
 - [Concepto](#concepto)
 - [Impuestos](#concepto)
+
   - [Traslado](#traslado)
+
     - [Traslado en comprobante](#traslado-en-comprobante)
     - [Traslado en concepto](#traslado-en-concepto)
+
   - [Retención](#retención)
+
     - [Retención en comprobante](#retención-en-comprobante)
     - [Retención en concepto](#retención-en-concepto)
+
 - [Información Aduanera](#información-aduanera)
+
 - [Cuenta Predial](#cuenta-predial)
 - [Parte](#parte)
 
