@@ -16,7 +16,7 @@ namespace Charles\CFDI\Node\Complemento;
  *
  * @author Orlando Charles <me@orlandocharles.com>
  */
-class TimbreFiscal extends Complemento
+class TimbreFiscalDigital extends Complemento
 {
     /**
      * Node name.
