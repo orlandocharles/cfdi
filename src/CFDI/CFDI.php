@@ -125,6 +125,9 @@ class CFDI
      */
     protected function getSello(): string
     {
+        if ('' === $this->key) {
+            return '';
+        }
         $pkey = openssl_get_privatekey($this->key);
         openssl_sign(@$this->getCadenaOriginal(), $signature, $pkey, OPENSSL_ALGO_SHA256);
         openssl_free_key($pkey);
