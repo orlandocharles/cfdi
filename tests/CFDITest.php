@@ -2,6 +2,7 @@
 
 namespace Charles\Tests\CFDI;
 
+use CfdiUtils\Certificado;
 use Charles\CFDI\CFDI;
 use Charles\CFDI\Node\Emisor;
 use PHPUnit\Framework\TestCase;
@@ -53,5 +54,17 @@ class CFDITest extends TestCase
         $this->assertFileExists($tempfile);
         $this->assertXmlStringEqualsXmlFile($tempfile, $cfdi->getXML());
         unlink($tempfile);
+    }
+
+    public function testAddCertificado()
+    {
+        $cerfile = __DIR__ . '/assets/certs/CSD01_AAA010101AAA.cer';
+        $expectedFile = __DIR__ . '/assets/with-certificado.xml';
+
+        $certificado = new Certificado($cerfile);
+        $cfdi = new CFDI([], '', '');
+        $cfdi->addCertificado($certificado);
+
+        $this->assertXmlStringEqualsXmlFile($expectedFile, $cfdi->getXML());
     }
 }
