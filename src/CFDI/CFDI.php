@@ -109,12 +109,12 @@ class CFDI
         $xsl->load($xslt);
 
         $xslt = new XSLTProcessor();
-        $xslt->importStyleSheet($xsl);
+        $xslt->importStylesheet($xsl);
 
         $xml = new DOMDocument();
         $xml->loadXML($this->comprobante->getDocument()->saveXML());
 
-        return $xslt->transformToXML($xml);
+        return $xslt->transformToXml($xml);
     }
 
     /**
