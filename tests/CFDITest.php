@@ -13,12 +13,8 @@ class CFDITest extends TestCase
         $expectedFile = __DIR__ . '/assets/with-minimal-information.xml';
 
         $cfdi = new CFDI([], '', '');
-        $tempfile = tempnam('', '');
-        $cfdi->save($tempfile, '');
 
-        $this->assertFileExists($tempfile);
-        $this->assertXmlFileEqualsXmlFile($expectedFile, $tempfile);
-        unlink($tempfile);
+        $this->assertXmlStringEqualsXmlFile($expectedFile, $cfdi->getXML());
     }
 
     public function testConstructWithRandomAttributes()
@@ -29,31 +25,22 @@ class CFDITest extends TestCase
             'NoCertificado' => '12345678901234567890',
             'Foo' => 'Bar'
         ], '', '');
-        $tempfile = tempnam('', '');
-        $cfdi->save($tempfile, '');
 
-        $this->assertFileExists($tempfile);
-        $this->assertXmlFileEqualsXmlFile($expectedFile, $tempfile);
-        unlink($tempfile);
+        $this->assertXmlStringEqualsXmlFile($expectedFile, $cfdi->getXML());
     }
 
     public function testAddMethodUsingEmisor()
     {
         $expectedFile = __DIR__ . '/assets/with-only-emisor.xml';
 
-        $cfdi = new CFDI([], '', '');
-
         $emisor = new Emisor([
             'Rfc' => 'AAA010101AAA',
             'Nombre' => 'ACCEM SERVICIOS EMPRESARIALES SC',
             'RegimenFiscal' => '601',
         ]);
+        $cfdi = new CFDI([], '', '');
         $cfdi->add($emisor);
 
-        $tempfile = tempnam('', '');
-        $cfdi->save($tempfile, '');
-        $this->assertFileExists($tempfile);
-        $this->assertXmlFileEqualsXmlFile($expectedFile, $tempfile);
-        unlink($tempfile);
+        $this->assertXmlStringEqualsXmlFile($expectedFile, $cfdi->getXML());
     }
 }
