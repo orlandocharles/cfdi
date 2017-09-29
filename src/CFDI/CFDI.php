@@ -11,6 +11,7 @@
 
 namespace Charles\CFDI;
 
+use CfdiUtils\Certificado;
 use Charles\CFDI\Common\Node;
 use Charles\CFDI\Node\Comprobante;
 use DOMDocument;
@@ -89,6 +90,23 @@ class CFDI
     public function add(Node $node)
     {
         $this->comprobante->add($node);
+    }
+
+    /**
+     * Change the initial certificate with the current certificate data and also
+     * set the NoCertificado information
+     *
+     * @param Certificado $certificado
+     */
+    public function addCertificado(Certificado $certificado)
+    {
+        $this->cer = base64_encode(file_get_contents($certificado->getFilename()));
+        $this->comprobante->setAtributes(
+            $this->comprobante->getElement(),
+            [
+                'NoCertificado' => $certificado->getSerial()
+            ]
+        );
     }
 
     /**
