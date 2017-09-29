@@ -5,6 +5,7 @@ namespace Charles\Tests\CFDI;
 use CfdiUtils\Certificado;
 use Charles\CFDI\CFDI;
 use Charles\CFDI\Node\Emisor;
+use Charles\CFDI\XmlResolver;
 use PHPUnit\Framework\TestCase;
 
 class CFDITest extends TestCase
@@ -15,6 +16,7 @@ class CFDITest extends TestCase
 
         $cfdi = new CFDI([], '', '');
 
+        $this->assertFalse($cfdi->getResolver()->hasLocalPath());
         $this->assertXmlStringEqualsXmlFile($expectedFile, $cfdi->getXML());
     }
 
@@ -66,5 +68,28 @@ class CFDITest extends TestCase
         $cfdi->addCertificado($certificado);
 
         $this->assertXmlStringEqualsXmlFile($expectedFile, $cfdi->getXML());
+    }
+
+    public function testGetCadenaOrigenWithXmlResolverUsingLocalPath()
+    {
+        $resolver = new XmlResolver();
+
+        $cfdi = new CFDI([], '', '');
+        $cfdi->setResolver($resolver);
+
+        $testTimeElapsed = is_dir($resolver->getLocalPath());
+
+        $before = microtime();
+        $this->assertNotEmpty($cfdi->getCadenaOriginal());
+        $after = microtime();
+
+        if ($testTimeElapsed) {
+            $maximumMicrotime = 2000;
+            $this->assertLessThan(
+                $maximumMicrotime,
+                $after - $before,
+                "The method getCadenaOriginal take more than $maximumMicrotime microseconds"
+            );
+        }
     }
 }

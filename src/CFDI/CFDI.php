@@ -53,31 +53,29 @@ class CFDI
     protected $cer;
 
     /**
-     * @var boolean
-     */
-    protected $xslt;
-
-    /**
      * Comprobante instance.
      *
      * @var Comprobante
      */
     protected $comprobante;
 
+    /** @var XmlResolver */
+    protected $resolver;
+
     /**
      * Create a new cfdi instance.
      *
-     * @param array     $data
-     * @param string    $key
-     * @param string    $cer
-     * @param boolean   $xslt
+     * @param array         $data
+     * @param string        $key
+     * @param string        $cer
+     * @param XmlResolver   $resolver
      */
-    public function __construct(array $data, string $cer, string $key, bool $xslt = false)
+    public function __construct(array $data, string $cer, string $key, XmlResolver $resolver = null)
     {
         $this->comprobante = new Comprobante($data, $this->version);
         $this->cer = $cer;
         $this->key = $key;
-        $this->xslt = $xslt;
+        $this->resolver = $resolver ? : new XmlResolver('');
     }
 
     /**
@@ -116,7 +114,7 @@ class CFDI
      */
     public function getCadenaOriginal(): string
     {
-        $location = (! $this->xslt) ? static::XSL_ENDPOINT : __DIR__ . '/Utils/cadenaoriginal_3_3.xslt';
+        $location = $this->resolver->resolve(static::XSL_ENDPOINT, 'XSLT');
         $builder = new CadenaOrigen();
         return $builder->build(
             $this->comprobante->getDocument()->saveXML(),
@@ -215,5 +213,15 @@ class CFDI
     public function save(string $path, string $name)
     {
         $this->xml()->save($path.$name);
+    }
+
+    public function setResolver(XmlResolver $resolver)
+    {
+        $this->resolver = $resolver;
+    }
+
+    public function getResolver(): XmlResolver
+    {
+        return $this->resolver;
     }
 }
