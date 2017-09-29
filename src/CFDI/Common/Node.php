@@ -94,7 +94,7 @@ class Node
         if ($wrapperName = $node->getWrapperNodeName()) {
             $wrapperElement = $this->getDirectChildElementByName(
                 $this->element->childNodes,
-                $wrapperName
+                (string) $wrapperName
             );
 
             if (!$wrapperElement) {
@@ -109,7 +109,7 @@ class Node
 
             $parentNode = $this->getDirectChildElementByName(
                 $currentElement->childNodes,
-                $parentName
+                (string) $parentName
             );
 
             if (!$parentNode) {
