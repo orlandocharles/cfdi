@@ -77,8 +77,9 @@ class Node
      * Add a new node
      *
      * @param Node $node
+     * @return void
      */
-    public function add($node)
+    public function add(Node $node)
     {
         $wrapperElement = null;
 
@@ -128,14 +129,14 @@ class Node
     /**
      * Search the direct child of an element
      *
-     * @param DOMNodeList   $childs
+     * @param DOMNodeList   $children
      * @param string        $find
      *
      * @return DOMElement|null
      */
-    protected function getDirectChildElementByName(DOMNodeList $childs, $find)
+    protected function getDirectChildElementByName(DOMNodeList $children, string $find)
     {
-        foreach ($childs as $child) {
+        foreach ($children as $child) {
             if ($child->nodeName == $find) {
                 return $child;
             }
@@ -147,11 +148,11 @@ class Node
      * Adds attributes to an element
      *
      * @param DOMElement    $element
-     * @param array         $attr
+     * @param array|null    $attr
      *
      * @return void
      */
-    public function setAtributes(DOMElement $element, $attr)
+    public function setAtributes(DOMElement $element, array $attr = null)
     {
         if (!is_null($attr)) {
             foreach ($attr as $key => $value) {
@@ -165,7 +166,7 @@ class Node
      *
      * @return DOMElement
      */
-    public function getElement()
+    public function getElement(): DOMElement
     {
         return $this->element;
     }
@@ -175,7 +176,7 @@ class Node
      *
      * @return DOMDocument
      */
-    public function getDocument()
+    public function getDocument(): DOMDocument
     {
         return $this->document;
     }
@@ -185,9 +186,9 @@ class Node
      *
      * @param string    $index
      *
-     * @return array
+     * @return array|null
      */
-    public function getAttr($index = 'node')
+    public function getAttr(string $index = 'node')
     {
         $attrIndex = ['node', 'parent', 'wrapper'];
 
@@ -225,7 +226,7 @@ class Node
      *
      * @return string
      */
-    public function getNodeName()
+    public function getNodeName(): string
     {
         if (! is_string($this->nodeName) || '' === $this->nodeName) {
             throw new \LogicException('El nodo de la clase ' . get_class($this) . ' no tiene nombre de nodo');
