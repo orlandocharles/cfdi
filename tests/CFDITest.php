@@ -43,4 +43,15 @@ class CFDITest extends TestCase
 
         $this->assertXmlStringEqualsXmlFile($expectedFile, $cfdi->getXML());
     }
+
+    public function testSaveMethodCreatesAFileAndIsEqualToGetXml()
+    {
+        $cfdi = new CFDI([], '', '');
+        $tempfile = tempnam('', '');
+        $cfdi->save($tempfile, '');
+
+        $this->assertFileExists($tempfile);
+        $this->assertXmlStringEqualsXmlFile($tempfile, $cfdi->getXML());
+        unlink($tempfile);
+    }
 }
