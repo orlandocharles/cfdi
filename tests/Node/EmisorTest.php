@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 class EmisorTest extends TestCase
 {
     /**
-     *
+     * @var Emisor
      */
     protected $emisor;
 

@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 class ParteTest extends TestCase
 {
     /**
-     *
+     * @var Parte
      */
     protected $parte;
 

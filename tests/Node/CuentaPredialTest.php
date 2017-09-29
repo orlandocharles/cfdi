@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 class CuentaPredialTest extends TestCase
 {
     /**
-     *
+     * @var CuentaPredial
      */
     protected $cuentaPredial;
 

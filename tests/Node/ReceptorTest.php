@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 class ReceptorTest extends TestCase
 {
     /**
-     *
+     * @var Receptor
      */
     protected $receptor;
 

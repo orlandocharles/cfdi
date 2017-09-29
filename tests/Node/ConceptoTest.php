@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 class ConceptoTest extends TestCase
 {
     /**
-     *
+     * @var Concepto
      */
     protected $concepto;
 

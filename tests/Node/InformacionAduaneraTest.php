@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 class InformacionAduaneraTest extends TestCase
 {
     /**
-     *
+     * @var InformacionAduanera
      */
     protected $informacionAduanera;
 
