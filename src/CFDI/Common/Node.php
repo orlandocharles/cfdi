@@ -23,13 +23,15 @@ use DOMNodeList;
 class Node
 {
     /**
-     * Define the node name
+     * Define the node name.
+     *
      * @var string
      */
     protected $nodeName = '';
 
     /**
-     * Define the parent node name, rename this attribute in inherit class
+     * Define the parent node name, rename this attribute in inherit class.
+     *
      * @var string|null
      */
     protected $parentNodeName = null;
@@ -74,7 +76,7 @@ class Node
     }
 
     /**
-     * Add a new node
+     * Add a new node.
      *
      * @param Node $node
      * @return void
@@ -127,7 +129,7 @@ class Node
     }
 
     /**
-     * Search the direct child of an element
+     * Search the direct child of an element.
      *
      * @param DOMNodeList   $children
      * @param string        $find
@@ -145,7 +147,7 @@ class Node
     }
 
     /**
-     * Adds attributes to an element
+     * Adds attributes to an element.
      *
      * @param DOMElement    $element
      * @param array|null    $attr

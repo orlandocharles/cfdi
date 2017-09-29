@@ -24,7 +24,7 @@ use XSLTProcessor;
 class CFDI
 {
     /**
-     * SAT XSL endpoint
+     * SAT XSL endpoint.
      *
      * @var string
      */
@@ -45,7 +45,7 @@ class CFDI
     protected $key;
 
     /**
-     * CSD cer
+     * CSD cer.
      *
      * @var string
      */
