@@ -11,6 +11,7 @@
 
 namespace Charles\CFDI;
 
+use Charles\CFDI\Common\Node;
 use Charles\CFDI\Node\Comprobante;
 use DOMDocument;
 use XSLTProcessor;
@@ -70,7 +71,7 @@ class CFDI
      * @param string    $cer
      * @param boolean   $xslt
      */
-    public function __construct($data, $cer, $key, $xslt = false)
+    public function __construct(array $data, string $cer, string $key, bool $xslt = false)
     {
         $this->comprobante = new Comprobante($data, $this->version);
         $this->cer = $cer;
@@ -81,11 +82,11 @@ class CFDI
     /**
      * Add new node to comprobante instance.
      *
-     * @param $node
+     * @param Node $node
      *
      * @return void
      */
-    public function add($node)
+    public function add(Node $node)
     {
         $this->comprobante->add($node);
     }
@@ -95,7 +96,7 @@ class CFDI
      *
      * @return string
      */
-    public function getCadenaOriginal()
+    public function getCadenaOriginal(): string
     {
         $xsl = new DOMDocument();
 
@@ -114,7 +115,7 @@ class CFDI
         $xml = new DOMDocument();
         $xml->loadXML($this->comprobante->getDocument()->saveXML());
 
-        return $xslt->transformToXml($xml);
+        return (string) $xslt->transformToXml($xml);
     }
 
     /**
@@ -122,7 +123,7 @@ class CFDI
      *
      * @return string
      */
-    protected function getSello()
+    protected function getSello(): string
     {
         $pkey = openssl_get_privatekey($this->key);
         openssl_sign(@$this->getCadenaOriginal(), $signature, $pkey, OPENSSL_ALGO_SHA256);
@@ -150,7 +151,7 @@ class CFDI
      *
      * @return string
      */
-    protected function getCertificado()
+    protected function getCertificado(): string
     {
         $cer = preg_replace('/(-+[^-]+-+)/', '', $this->cer);
         $cer = preg_replace('/\s+/', '', $cer);
@@ -177,7 +178,7 @@ class CFDI
      *
      * @return DOMDocument
      */
-    protected function xml()
+    protected function xml(): DOMDocument
     {
         $this->putSello();
         $this->putCertificado();
@@ -189,7 +190,7 @@ class CFDI
      *
      * @return string
      */
-    public function getXML()
+    public function getXML(): string
     {
         return $this->xml()->saveXML();
     }
@@ -202,7 +203,7 @@ class CFDI
      *
      * @return void
      */
-    public function save($path, $name)
+    public function save(string $path, string $name)
     {
         $this->xml()->save($path.$name);
     }
