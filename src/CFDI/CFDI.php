@@ -11,11 +11,11 @@
 
 namespace Charles\CFDI;
 
+use CfdiUtils\CadenaOrigen;
 use CfdiUtils\Certificado;
 use Charles\CFDI\Common\Node;
 use Charles\CFDI\Node\Comprobante;
 use DOMDocument;
-use XSLTProcessor;
 
 /**
  * This is the cfdi class.
@@ -116,24 +116,12 @@ class CFDI
      */
     public function getCadenaOriginal(): string
     {
-        $xsl = new DOMDocument();
-
-        if ($this->xslt) {
-            $path = __DIR__.'/Utils/cadenaoriginal_3_3.xslt';
-            $xslt = file_get_contents($path);
-        } else {
-            $xslt = static::XSL_ENDPOINT;
-        }
-
-        $xsl->load($xslt);
-
-        $xslt = new XSLTProcessor();
-        $xslt->importStylesheet($xsl);
-
-        $xml = new DOMDocument();
-        $xml->loadXML($this->comprobante->getDocument()->saveXML());
-
-        return (string) $xslt->transformToXml($xml);
+        $location = (! $this->xslt) ? static::XSL_ENDPOINT : __DIR__ . '/Utils/cadenaoriginal_3_3.xslt';
+        $builder = new CadenaOrigen();
+        return $builder->build(
+            $this->comprobante->getDocument()->saveXML(),
+            $location
+        );
     }
 
     /**
@@ -147,7 +135,7 @@ class CFDI
             return '';
         }
         $pkey = openssl_get_privatekey($this->key);
-        openssl_sign(@$this->getCadenaOriginal(), $signature, $pkey, OPENSSL_ALGO_SHA256);
+        openssl_sign($this->getCadenaOriginal(), $signature, $pkey, OPENSSL_ALGO_SHA256);
         openssl_free_key($pkey);
         return base64_encode($signature);
     }
