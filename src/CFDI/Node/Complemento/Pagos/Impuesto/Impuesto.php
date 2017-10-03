@@ -18,7 +18,7 @@ use Charles\CFDI\Common\Node;
  *
  * @author Orlando Charles <me@orlandocharles.com>
  */
-class Impuesto extends Node
+abstract class Impuesto extends Node
 {
     /**
      * Wrapper node name.
