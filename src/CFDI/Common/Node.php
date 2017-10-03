@@ -199,13 +199,7 @@ abstract class Node
     public function getAttr(string $index = 'node'): array
     {
         $attrIndex = ['node', 'parent', 'wrapper'];
-
-        if (in_array($index, $attrIndex)) {
-            $index = array_search($index, $attrIndex);
-        } else {
-            $index = 0;
-        }
-
+        $index = (int) array_search($index, $attrIndex);
         return (isset($this->attr[$index])) ? $this->attr[$index] : [];
     }
 
