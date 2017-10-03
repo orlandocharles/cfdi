@@ -12,7 +12,5 @@ script: vendor/bin/phpunit
 
 notifications:
   email:
-    recipients:
-      - me@orlandocharles.com
     on_success: never
     on_failure: always
