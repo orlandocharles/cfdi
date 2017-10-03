@@ -124,13 +124,11 @@ abstract class Node
                 $parentName
             );
             if (!$parentNode) {
-                $parentElement = $this->document->createElement($parentName);
-                $currentElement->appendChild($parentElement);
-                $parentElement->appendChild($nodeElement);
-                $this->setAttributes($parentElement, $node->getAttr('parent'));
-            } else {
-                $parentNode->appendChild($nodeElement);
+                $parentNode = $this->document->createElement($parentName);
+                $currentElement->appendChild($parentNode);
+                $this->setAttributes($parentNode, $node->getAttr('parent'));
             }
+            $parentNode->appendChild($nodeElement);
         } else {
             $this->element->appendChild($nodeElement);
         }
