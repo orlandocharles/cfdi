@@ -33,7 +33,7 @@ class NodeTest extends TestCase
         $this->assertInstanceOf(DOMDocument::class, $node->getDocument());
         $this->assertInstanceOf(DOMElement::class, $node->getElement());
         $this->assertEquals('Fake', $node->getNodeName());
-        $this->assertNull($node->getAttr());
+        $this->assertCount(0, $node->getAttr());
         $this->assertNull($node->getParentNodeName());
         $this->assertNull($node->getWrapperNodeName());
     }

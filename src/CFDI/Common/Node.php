@@ -194,9 +194,9 @@ abstract class Node
      *
      * @param string    $index
      *
-     * @return array|null
+     * @return array
      */
-    public function getAttr(string $index = 'node')
+    public function getAttr(string $index = 'node'): array
     {
         $attrIndex = ['node', 'parent', 'wrapper'];
 
@@ -206,7 +206,7 @@ abstract class Node
             $index = 0;
         }
 
-        return (isset($this->attr[$index])) ? $this->attr[$index] : null;
+        return (isset($this->attr[$index])) ? $this->attr[$index] : [];
     }
 
     /**
