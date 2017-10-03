@@ -89,23 +89,23 @@ abstract class Node
      */
     public function add(Node $node)
     {
-        $wrapperElement = null;
-
+        // create the nodeElement with all contents
         $nodeElement = $this->document->createElement($node->getNodeName());
         $this->setAttributes($nodeElement, $node->getAttr());
-
         foreach ($node->element->childNodes as $child) {
             $nodeElement->appendChild(
                 $this->document->importNode($child, true)
             );
         }
 
-        if ($wrapperName = $node->getWrapperNodeName()) {
+        // get or create the wrapper element if needed
+        $wrapperElement = null;
+        $wrapperName = $node->getWrapperNodeName();
+        if ($wrapperName) {
             $wrapperElement = $this->getDirectChildElementByName(
                 $this->element->childNodes,
                 $wrapperName
             );
-
             if (!$wrapperElement) {
                 $wrapperElement = $this->document->createElement($wrapperName);
                 $this->element->appendChild($wrapperElement);
@@ -113,14 +113,16 @@ abstract class Node
             }
         }
 
-        if ($parentName = $node->getParentNodeName()) {
+        // get or create the parent element if needed
+        // and append the created element
+        $parentName = $node->getParentNodeName();
+        if ($parentName) {
             $currentElement = ($wrapperElement) ? $wrapperElement : $this->element ;
 
             $parentNode = $this->getDirectChildElementByName(
                 $currentElement->childNodes,
                 $parentName
             );
-
             if (!$parentNode) {
                 $parentElement = $this->document->createElement($parentName);
                 $currentElement->appendChild($parentElement);
