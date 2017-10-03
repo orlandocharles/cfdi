@@ -111,14 +111,14 @@ abstract class Node
                 $this->element->appendChild($wrapperElement);
                 $this->setAttributes($wrapperElement, $node->getAttr('wrapper'));
             }
+        } else {
+            $wrapperElement = $this->element;
         }
 
         // get or create the parent element if needed
         // and append the created element
         $parentName = $node->getParentNodeName();
         if ($parentName) {
-            $wrapperElement = $wrapperElement ? : $this->element ;
-
             $parentNode = $this->getDirectChildElementByName(
                 $wrapperElement->childNodes,
                 $parentName
