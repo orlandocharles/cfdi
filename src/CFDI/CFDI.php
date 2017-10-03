@@ -224,4 +224,12 @@ class CFDI
     {
         return $this->resolver;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString() :string
+    {
+        return $this->getXML();
+    }
 }
