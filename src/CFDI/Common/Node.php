@@ -99,20 +99,18 @@ abstract class Node
         }
 
         // get or create the wrapper element if needed
-        $wrapperName = $node->getWrapperNodeName();
-        if ($wrapperName) {
-            $wrapperElement = $this->getDirectChildOrCreate($this->element, $wrapperName, $node->getAttr('wrapper'));
-        } else {
-            $wrapperElement = $this->element;
-        }
+        $wrapperElement = $this->getDirectChildOrCreate(
+            $this->element,
+            $node->getWrapperNodeName(),
+            $node->getAttr('wrapper')
+        );
 
         // get or create the parent element if needed
-        $parentName = $node->getParentNodeName();
-        if ($parentName) {
-            $parentNode = $this->getDirectChildOrCreate($wrapperElement, $parentName, $node->getAttr('parent'));
-        } else {
-            $parentNode = $this->element;
-        }
+        $parentNode = $this->getDirectChildOrCreate(
+            $wrapperElement,
+            $node->getParentNodeName(),
+            $node->getAttr('parent')
+        );
 
         // append the created element
         $parentNode->appendChild($nodeElement);
@@ -120,6 +118,9 @@ abstract class Node
 
     protected function getDirectChildOrCreate(DOMElement $owner, string $name, array $attributes): DOMElement
     {
+        if ('' === $name) {
+            return $this->element;
+        }
         $created = $this->getDirectChildElementByName(
             $owner->childNodes,
             $name
