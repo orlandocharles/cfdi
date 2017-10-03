@@ -10,7 +10,9 @@ before_script:
   - travis_retry composer self-update
   - travis_retry composer install --no-interaction --prefer-dist
 
-script: vendor/bin/phpunit
+script:
+  - mkdir -p build/tests/
+  - vendor/bin/phpunit --coverage-text --coverage-clover=build/tests/coverage.xml
 
 notifications:
   email:
