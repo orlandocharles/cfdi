@@ -160,7 +160,7 @@ abstract class Node
      *
      * @return void
      */
-    public function setAtributes(DOMElement $element, array $attr = null)
+    public function setAttributes(DOMElement $element, array $attr = null)
     {
         if (!is_null($attr)) {
             foreach ($attr as $key => $value) {
