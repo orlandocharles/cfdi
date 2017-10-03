@@ -16,6 +16,14 @@ class NodeTest extends TestCase
         };
     }
 
+    public function newWithParent(...$attributes)
+    {
+        return new class(...$attributes) extends Node {
+            protected $parentNodeName = 'Parent';
+            protected $nodeName = 'Node';
+        };
+    }
+
     public function newWithParentWrapper(...$attributes)
     {
         return new class(...$attributes) extends Node {
@@ -122,6 +130,15 @@ class NodeTest extends TestCase
         $node->add($inner);
 
         $expected = '<Fake name="node"><Fake name="inner"/></Fake>';
+        $this->assertXmlStringEqualsXmlString($expected, $node->getDocument()->saveXML());
+    }
+
+    public function testAddWithParent()
+    {
+        $withParent = $this->newWithParent(['level' => 'node'], ['level' => 'parent']);
+        $node = $this->newFakeNode();
+        $node->add($withParent);
+        $expected = '<Fake><Parent level="parent"><Node level="node"/></Parent></Fake>';
         $this->assertXmlStringEqualsXmlString($expected, $node->getDocument()->saveXML());
     }
 
