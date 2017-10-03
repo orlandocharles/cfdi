@@ -207,4 +207,12 @@ class CFDI
     {
         $this->xml()->save($path.$name);
     }
+
+    /**
+     * @return string
+     */
+    public function __toString() :string
+    {
+        return $this->getXML();
+    }
 }
