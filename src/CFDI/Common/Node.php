@@ -32,15 +32,15 @@ abstract class Node
     /**
      * Define the parent node name, rename this attribute in inherit class.
      *
-     * @var string|null
+     * @var string
      */
-    protected $parentNodeName = null;
+    protected $parentNodeName = '';
 
     /**
      * Define the wrapper node name (node grandparent), rename this attribute in inherit class
-     * @var string|null
+     * @var string
      */
-    protected $wrapperNodeName = null;
+    protected $wrapperNodeName = '';
 
     /**
      * Node document.
@@ -204,9 +204,9 @@ abstract class Node
     /**
      * Get wrapper node name.
      *
-     * @return string|null
+     * @return string
      */
-    public function getWrapperNodeName()
+    public function getWrapperNodeName(): string
     {
         return $this->wrapperNodeName;
     }
@@ -214,9 +214,9 @@ abstract class Node
     /**
      * Get parent node name.
      *
-     * @return string|null
+     * @return string
      */
-    public function getParentNodeName()
+    public function getParentNodeName(): string
     {
         return $this->parentNodeName;
     }

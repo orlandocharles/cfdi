@@ -42,8 +42,8 @@ class NodeTest extends TestCase
         $this->assertInstanceOf(DOMElement::class, $node->getElement());
         $this->assertEquals('Fake', $node->getNodeName());
         $this->assertCount(0, $node->getAttr());
-        $this->assertNull($node->getParentNodeName());
-        $this->assertNull($node->getWrapperNodeName());
+        $this->assertSame('', $node->getParentNodeName());
+        $this->assertSame('', $node->getWrapperNodeName());
     }
 
     public function testConstructWithBadNodeImplementation()
