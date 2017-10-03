@@ -37,6 +37,12 @@ abstract class Node
     protected $parentNodeName = null;
 
     /**
+     * Define the wrapper node name (node grandparent), rename this attribute in inherit class
+     * @var string|null
+     */
+    protected $wrapperNodeName = null;
+
+    /**
      * Node document.
      *
      * @var DOMDocument
@@ -210,7 +216,7 @@ abstract class Node
      */
     public function getWrapperNodeName()
     {
-        return (isset($this->wrapperNodeName)) ? $this->wrapperNodeName : null;
+        return $this->wrapperNodeName;
     }
 
     /**
