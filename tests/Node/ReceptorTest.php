@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Charles\Tests\CFDI;
+namespace Charles\Tests\CFDI\Node;
 
 use Charles\CFDI\Node\Receptor;
 use PHPUnit\Framework\TestCase;
@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 class ReceptorTest extends TestCase
 {
     /**
-     *
+     * @var Receptor
      */
     protected $receptor;
 

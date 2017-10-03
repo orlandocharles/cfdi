@@ -11,10 +11,11 @@
 
 namespace Charles\CFDI;
 
+use CfdiUtils\CadenaOrigen;
+use CfdiUtils\Certificado;
 use Charles\CFDI\Common\Node;
 use Charles\CFDI\Node\Comprobante;
 use DOMDocument;
-use XSLTProcessor;
 
 /**
  * This is the cfdi class.
@@ -52,31 +53,29 @@ class CFDI
     protected $cer;
 
     /**
-     * @var boolean
-     */
-    protected $xslt;
-
-    /**
      * Comprobante instance.
      *
      * @var Comprobante
      */
     protected $comprobante;
 
+    /** @var XmlResolver */
+    protected $resolver;
+
     /**
      * Create a new cfdi instance.
      *
-     * @param array     $data
-     * @param string    $key
-     * @param string    $cer
-     * @param boolean   $xslt
+     * @param array         $data
+     * @param string        $key
+     * @param string        $cer
+     * @param XmlResolver   $resolver
      */
-    public function __construct(array $data, string $cer, string $key, bool $xslt = false)
+    public function __construct(array $data, string $cer, string $key, XmlResolver $resolver = null)
     {
         $this->comprobante = new Comprobante($data, $this->version);
         $this->cer = $cer;
         $this->key = $key;
-        $this->xslt = $xslt;
+        $this->resolver = $resolver ? : new XmlResolver('');
     }
 
     /**
@@ -92,30 +91,35 @@ class CFDI
     }
 
     /**
+     * Change the initial certificate with the current certificate data and also
+     * set the NoCertificado information
+     *
+     * @param Certificado $certificado
+     */
+    public function addCertificado(Certificado $certificado)
+    {
+        $this->cer = base64_encode(file_get_contents($certificado->getFilename()));
+        $this->comprobante->setAttributes(
+            $this->comprobante->getElement(),
+            [
+                'NoCertificado' => $certificado->getSerial()
+            ]
+        );
+    }
+
+    /**
      * Gets the original string.
      *
      * @return string
      */
     public function getCadenaOriginal(): string
     {
-        $xsl = new DOMDocument();
-
-        if ($this->xslt) {
-            $path = __DIR__.'/Utils/cadenaoriginal_3_3.xslt';
-            $xslt = file_get_contents($path);
-        } else {
-            $xslt = static::XSL_ENDPOINT;
-        }
-
-        $xsl->load($xslt);
-
-        $xslt = new XSLTProcessor();
-        $xslt->importStyleSheet($xsl);
-
-        $xml = new DOMDocument();
-        $xml->loadXML($this->comprobante->getDocument()->saveXML());
-
-        return (string) $xslt->transformToXml($xml);
+        $location = $this->resolver->resolve(static::XSL_ENDPOINT, 'XSLT');
+        $builder = new CadenaOrigen();
+        return $builder->build(
+            $this->comprobante->getDocument()->saveXML(),
+            $location
+        );
     }
 
     /**
@@ -125,8 +129,11 @@ class CFDI
      */
     protected function getSello(): string
     {
+        if ('' === $this->key) {
+            return '';
+        }
         $pkey = openssl_get_privatekey($this->key);
-        openssl_sign(@$this->getCadenaOriginal(), $signature, $pkey, OPENSSL_ALGO_SHA256);
+        openssl_sign($this->getCadenaOriginal(), $signature, $pkey, OPENSSL_ALGO_SHA256);
         openssl_free_key($pkey);
         return base64_encode($signature);
     }
@@ -206,5 +213,15 @@ class CFDI
     public function save(string $path, string $name)
     {
         $this->xml()->save($path.$name);
+    }
+
+    public function setResolver(XmlResolver $resolver)
+    {
+        $this->resolver = $resolver;
+    }
+
+    public function getResolver(): XmlResolver
+    {
+        return $this->resolver;
     }
 }

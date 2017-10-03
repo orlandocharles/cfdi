@@ -161,7 +161,7 @@ abstract class Node
      * Adds attributes to an element.
      *
      * @param DOMElement    $element
-     * @param array         $attr
+     * @param array|null    $attr
      *
      * @return void
      */
@@ -197,7 +197,7 @@ abstract class Node
      *
      * @param string    $index
      *
-     * @return array
+     * @return array|null
      */
     public function getAttr(string $index = 'node'): array
     {

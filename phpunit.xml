@@ -5,9 +5,14 @@
          convertWarningsToExceptions="true"
          stopOnFailure="false"
          colors="true">
-  <testsuites>
-    <testsuite name="CFDI Tests">
-      <directory suffix="Test.php">./tests</directory>
-    </testsuite>
-  </testsuites>
+    <testsuites>
+        <testsuite name="CFDI Tests">
+            <directory suffix="Test.php">./tests</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./src</directory>
+        </whitelist>
+    </filter>
 </phpunit>

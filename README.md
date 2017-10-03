@@ -398,6 +398,40 @@ $cfdi->add($concepto);
 </cfdi:Conceptos>
 ```
 
+## XmlResolver
+
+De manera predeterminada, para construir la cadena de origen se usa el mecanismo recomendado por el SAT
+de convertir el XML en texto usando XSLT desde el archivo remoto
+`http://www.sat.gob.mx/sitio_internet/cfd/3/cadenaoriginal_3_3/cadenaoriginal_3_3.xslt`
+
+Si desea descargar recursivamente los recursos del SAT para almacenarlos localmente puede usar un objeto
+`XmlResolver` e insertarlo en su objeto `CFDI`, así puede especificar el lugar donde se van a descargar
+y reutilizar los archivos XSLT del SAT.
+
+```php
+use Charles\CFDI\CFDI;
+use Charles\CFDI\XmlResolver;
+
+// no usará almacenamiento local
+$resolver = new XmlResolver('');
+
+// usará la ruta donde está instalada la librería + /build/resources/
+$resolver = new XmlResolver();
+
+// usará la ruta especificada
+$resolver = new XmlResolver('/cfdi/cache/');
+
+// establezca el objeto en el cfdi después de ser creado
+/** @var CFDI $cfdi */
+$cfdi->setResolver($resolver);
+
+// también lo puede establecer desde el momento de su construcción
+new CFDI($attributes, $cer, $key, $resolver);
+```
+
+Si se encuentra detrás de un proxy o quiere usar sus propios métodos de descarga puede implementar
+la interfaz `XmlResourceRetriever\Downloader\DownloaderInterface` y establecérsela a su objeto `XmlResolver`
+
 ## Licencia
 
 Este paquete no pertenece a ninguna comañia ni entidad gubernamental y esta bajo la Licencia MIT, si quieres saber más al respecto puedes ver el archivo de [Licencia](LICENSE) que se encuentra en este mismo repositorio.

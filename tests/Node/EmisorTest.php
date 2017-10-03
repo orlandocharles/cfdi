@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Charles\Tests\CFDI;
+namespace Charles\Tests\CFDI\Node;
 
 use Charles\CFDI\Node\Emisor;
 use PHPUnit\Framework\TestCase;
@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 class EmisorTest extends TestCase
 {
     /**
-     *
+     * @var Emisor
      */
     protected $emisor;
 
