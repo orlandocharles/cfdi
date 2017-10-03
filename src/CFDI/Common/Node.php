@@ -72,7 +72,7 @@ abstract class Node
 
         $this->element = $this->document->createElement($this->getNodeName());
         $this->document->appendChild($this->element);
-        $this->setAtributes($this->element, $this->getAttr());
+        $this->setAttributes($this->element, $this->getAttr());
     }
 
     /**
@@ -86,7 +86,7 @@ abstract class Node
         $wrapperElement = null;
 
         $nodeElement = $this->document->createElement($node->getNodeName());
-        $this->setAtributes($nodeElement, $node->getAttr());
+        $this->setAttributes($nodeElement, $node->getAttr());
 
         foreach ($node->element->childNodes as $child) {
             $nodeElement->appendChild(
@@ -103,7 +103,7 @@ abstract class Node
             if (!$wrapperElement) {
                 $wrapperElement = $this->document->createElement($wrapperName);
                 $this->element->appendChild($wrapperElement);
-                $this->setAtributes($wrapperElement, $node->getAttr('wrapper'));
+                $this->setAttributes($wrapperElement, $node->getAttr('wrapper'));
             }
         }
 
@@ -119,7 +119,7 @@ abstract class Node
                 $parentElement = $this->document->createElement($parentName);
                 $currentElement->appendChild($parentElement);
                 $parentElement->appendChild($nodeElement);
-                $this->setAtributes($parentElement, $node->getAttr('parent'));
+                $this->setAttributes($parentElement, $node->getAttr('parent'));
             } else {
                 $parentNode->appendChild($nodeElement);
             }
