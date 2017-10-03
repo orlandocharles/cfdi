@@ -18,6 +18,7 @@ class CFDITest extends TestCase
 
         $this->assertFalse($cfdi->getResolver()->hasLocalPath());
         $this->assertXmlStringEqualsXmlFile($expectedFile, $cfdi->getXML());
+        $this->assertXmlStringEqualsXmlFile($expectedFile, (string) $cfdi);
     }
 
     public function testConstructWithRandomAttributes()
