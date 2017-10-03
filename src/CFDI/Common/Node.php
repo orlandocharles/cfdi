@@ -98,13 +98,6 @@ abstract class Node
             );
         }
 
-        // exit early if no parentName was found, just add to this element
-        $parentName = $node->getParentNodeName();
-        if (! $parentName) {
-            $this->element->appendChild($nodeElement);
-            return;
-        }
-
         // get or create the wrapper element if needed
         $wrapperName = $node->getWrapperNodeName();
         if ($wrapperName) {
@@ -114,7 +107,12 @@ abstract class Node
         }
 
         // get or create the parent element if needed
-        $parentNode = $this->getDirectChildOrCreate($wrapperElement, $parentName, $node->getAttr('parent'));
+        $parentName = $node->getParentNodeName();
+        if ($parentName) {
+            $parentNode = $this->getDirectChildOrCreate($wrapperElement, $parentName, $node->getAttr('parent'));
+        } else {
+            $parentNode = $this->element;
+        }
 
         // append the created element
         $parentNode->appendChild($nodeElement);
