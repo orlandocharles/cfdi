@@ -98,8 +98,14 @@ abstract class Node
             );
         }
 
+        // exit early if no parentName was found, just add to this element
+        $parentName = $node->getParentNodeName();
+        if (! $parentName) {
+            $this->element->appendChild($nodeElement);
+            return;
+        }
+
         // get or create the wrapper element if needed
-        $wrapperElement = null;
         $wrapperName = $node->getWrapperNodeName();
         if ($wrapperName) {
             $wrapperElement = $this->getDirectChildElementByName(
@@ -116,22 +122,18 @@ abstract class Node
         }
 
         // get or create the parent element if needed
-        // and append the created element
-        $parentName = $node->getParentNodeName();
-        if ($parentName) {
-            $parentNode = $this->getDirectChildElementByName(
-                $wrapperElement->childNodes,
-                $parentName
-            );
-            if (!$parentNode) {
-                $parentNode = $this->document->createElement($parentName);
-                $wrapperElement->appendChild($parentNode);
-                $this->setAttributes($parentNode, $node->getAttr('parent'));
-            }
-            $parentNode->appendChild($nodeElement);
-        } else {
-            $this->element->appendChild($nodeElement);
+        $parentNode = $this->getDirectChildElementByName(
+            $wrapperElement->childNodes,
+            $parentName
+        );
+        if (!$parentNode) {
+            $parentNode = $this->document->createElement($parentName);
+            $wrapperElement->appendChild($parentNode);
+            $this->setAttributes($parentNode, $node->getAttr('parent'));
         }
+
+        // append the created element
+        $parentNode->appendChild($nodeElement);
     }
 
     /**
