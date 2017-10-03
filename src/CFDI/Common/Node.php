@@ -108,32 +108,30 @@ abstract class Node
         // get or create the wrapper element if needed
         $wrapperName = $node->getWrapperNodeName();
         if ($wrapperName) {
-            $wrapperElement = $this->getDirectChildElementByName(
-                $this->element->childNodes,
-                $wrapperName
-            );
-            if (!$wrapperElement) {
-                $wrapperElement = $this->document->createElement($wrapperName);
-                $this->element->appendChild($wrapperElement);
-                $this->setAttributes($wrapperElement, $node->getAttr('wrapper'));
-            }
+            $wrapperElement = $this->getDirectChildOrCreate($this->element, $wrapperName, $node->getAttr('wrapper'));
         } else {
             $wrapperElement = $this->element;
         }
 
         // get or create the parent element if needed
-        $parentNode = $this->getDirectChildElementByName(
-            $wrapperElement->childNodes,
-            $parentName
-        );
-        if (!$parentNode) {
-            $parentNode = $this->document->createElement($parentName);
-            $wrapperElement->appendChild($parentNode);
-            $this->setAttributes($parentNode, $node->getAttr('parent'));
-        }
+        $parentNode = $this->getDirectChildOrCreate($wrapperElement, $parentName, $node->getAttr('parent'));
 
         // append the created element
         $parentNode->appendChild($nodeElement);
+    }
+
+    protected function getDirectChildOrCreate(DOMElement $owner, string $name, array $attributes): DOMElement
+    {
+        $created = $this->getDirectChildElementByName(
+            $owner->childNodes,
+            $name
+        );
+        if (null === $created) {
+            $created = $this->document->createElement($name);
+            $owner->appendChild($created);
+            $this->setAttributes($created, $attributes);
+        }
+        return $created;
     }
 
     /**
