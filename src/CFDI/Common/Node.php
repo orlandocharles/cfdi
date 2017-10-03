@@ -66,11 +66,17 @@ abstract class Node
     /**
      * Create a new node instance.
      *
-     * @param array    $attr
+     * @param array $nodeAttributes
+     * @param array $parentAttributes
+     * @param array $wrapperAttributes
      */
-    public function __construct(...$attr)
+    public function __construct(array $nodeAttributes = [], array $parentAttributes = [], array $wrapperAttributes = [])
     {
-        $this->attr = $attr;
+        $this->attr = [
+            'node' => $nodeAttributes,
+            'parent' => $parentAttributes,
+            'wrapper' => $wrapperAttributes,
+        ];
 
         $this->document = new DOMDocument('1.0', 'UTF-8');
         $this->document->preserveWhiteSpace = false;
@@ -78,7 +84,7 @@ abstract class Node
 
         $this->element = $this->document->createElement($this->getNodeName());
         $this->document->appendChild($this->element);
-        $this->setAttributes($this->element, $this->getAttr());
+        $this->setAttributes($this->element, $nodeAttributes);
     }
 
     /**
@@ -195,9 +201,10 @@ abstract class Node
      */
     public function getAttr(string $index = 'node'): array
     {
-        $attrIndex = ['node', 'parent', 'wrapper'];
-        $index = (int) array_search($index, $attrIndex);
-        return (isset($this->attr[$index])) ? $this->attr[$index] : [];
+        if (! array_key_exists($index, $this->attr)) {
+            $index = 'node';
+        }
+        return $this->attr[$index];
     }
 
     /**
