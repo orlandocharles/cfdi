@@ -156,16 +156,14 @@ abstract class Node
      * Adds attributes to an element.
      *
      * @param DOMElement    $element
-     * @param array|null    $attr
+     * @param array         $attr
      *
      * @return void
      */
-    public function setAttributes(DOMElement $element, array $attr = null)
+    public function setAttributes(DOMElement $element, array $attr)
     {
-        if (!is_null($attr)) {
-            foreach ($attr as $key => $value) {
-                $element->setAttribute($key, $value);
-            }
+        foreach ($attr as $key => $value) {
+            $element->setAttribute($key, $value);
         }
     }
 
