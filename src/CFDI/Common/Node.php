@@ -20,7 +20,7 @@ use DOMNodeList;
  *
  * @author Orlando Charles <me@orlandocharles.com>
  */
-class Node
+abstract class Node
 {
     /**
      * Define the node name.
