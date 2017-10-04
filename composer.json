@@ -17,7 +17,7 @@
     "require": {
         "php": "^7.0",
         "eclipxe/cfdiutils": "^1.0",
-        "eclipxe/xmlresourceretriever": "^1.0"
+        "eclipxe/xmlresourceretriever": "^1.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8|^5.0"

@@ -18,6 +18,7 @@ class CFDITest extends TestCase
 
         $this->assertFalse($cfdi->getResolver()->hasLocalPath());
         $this->assertXmlStringEqualsXmlFile($expectedFile, $cfdi->getXML());
+        $this->assertXmlStringEqualsXmlFile($expectedFile, (string) $cfdi);
     }
 
     public function testConstructWithRandomAttributes()
@@ -79,13 +80,13 @@ class CFDITest extends TestCase
 
         $testTimeElapsed = is_dir($resolver->getLocalPath());
 
-        $before = microtime();
+        $before = time();
         $this->assertNotEmpty($cfdi->getCadenaOriginal());
-        $after = microtime();
+        $after = time();
 
         if ($testTimeElapsed) {
-            $maximumMicrotime = 2000;
-            $this->assertLessThan(
+            $maximumMicrotime = 2;
+            $this->assertLessThanOrEqual(
                 $maximumMicrotime,
                 $after - $before,
                 "The method getCadenaOriginal take more than $maximumMicrotime microseconds"

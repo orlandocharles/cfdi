@@ -4,6 +4,7 @@ namespace Charles\CFDI;
 
 use XmlResourceRetriever\Downloader\DownloaderInterface;
 use XmlResourceRetriever\Downloader\PhpDownloader;
+use XmlResourceRetriever\RetrieverInterface;
 use XmlResourceRetriever\XsdRetriever;
 use XmlResourceRetriever\XsltRetriever;
 
@@ -100,13 +101,15 @@ class XmlResolver
         } else {
             $type = strtoupper($type);
         }
-        if (static::TYPE_XSD === $type) {
-            return $this->resolveXsd($resource);
+        $retriever = $this->newRetriever($type);
+        if (null === $retriever) {
+            throw new \RuntimeException("Unable to handle the resource (Type: $type) $resource");
         }
-        if (static::TYPE_XSLT === $type) {
-            return $this->resolveXslt($resource);
+        $local = $retriever->buildPath($resource);
+        if (! file_exists($local)) {
+            $retriever->retrieve($resource);
         }
-        throw new \RuntimeException("Unable to handle the resource (Type: $type) $resource");
+        return $local;
     }
 
     public function obtainTypeFromUrl(string $url): string
@@ -120,26 +123,6 @@ class XmlResolver
         return '';
     }
 
-    private function resolveXsd(string $resource): string
-    {
-        $retriever = new XsdRetriever($this->getLocalPath(), $this->getDownloader());
-        $local = $retriever->buildPath($resource);
-        if (! file_exists($local)) {
-            $retriever->retrieve($resource);
-        }
-        return $local;
-    }
-
-    private function resolveXslt(string $resource): string
-    {
-        $retriever = new XsltRetriever($this->getLocalPath(), $this->getDownloader());
-        $local = $retriever->buildPath($resource);
-        if (! file_exists($local)) {
-            $retriever->retrieve($resource);
-        }
-        return $local;
-    }
-
     private function isResourceExtension(string $resource, string $extension): bool
     {
         $extension = '.' . $extension;
@@ -149,5 +132,20 @@ class XmlResolver
             return false;
         }
         return (0 === substr_compare(strtolower($resource), $extension, $length - $extLength, $extLength));
+    }
+
+    /**
+     * @param string $type
+     * @return RetrieverInterface|null
+     */
+    private function newRetriever(string $type)
+    {
+        if (static::TYPE_XSLT === $type) {
+            return new XsltRetriever($this->getLocalPath(), $this->getDownloader());
+        }
+        if (static::TYPE_XSD === $type) {
+            return new XsdRetriever($this->getLocalPath(), $this->getDownloader());
+        }
+        return null;
     }
 }

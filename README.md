@@ -24,7 +24,7 @@ composer require orlandocharles/cfdi
 - [Emisor](#emisor)
 - [Receptor](#receptor)
 - [Concepto](#concepto)
-- [Impuestos](#concepto)
+- [Impuestos](#impuestos)
 
   - [Traslado](#traslado)
 
@@ -40,7 +40,12 @@ composer require orlandocharles/cfdi
 
 - [Cuenta Predial](#cuenta-predial)
 - [Parte](#parte)
-
+- [Complemento Pagos](#pago)
+        - [Documento Relacionado](#pago-documento-relacionado)
+        - [Impuesto retenido](#retención-en-pago)
+        - [Impuesto trasladado](#traslado-en-pago)
+        
+        
 ### CFDI
 
 ```php
@@ -397,6 +402,102 @@ $cfdi->add($concepto);
   </cfdi:Concepto>
 </cfdi:Conceptos>
 ```
+#Complementos
+
+
+----------
+
+### Pago
+
+```php
+use Charles\CFDI\CFDI;
+use Charles\CFDI\Node\Complemento\Pagos\Pago;
+
+$cfdi = new CFDI([...]);
+
+$cfdi->add(new Pago([
+    'FechaPago' => '2017-01-01T12:00:00',
+    'FormaDePagoP' => '01',
+    'MonedaP' => 'USD',
+    'TipoCambioP' => '21.00',
+    'Monto' => '123.45',
+    'NumOperacion' => '83755',
+    'RfcEmisorCtaOrd' => 'AAA010101AAA',
+    'NomBancoOrdExt' => 'Banco de Jakarta',
+    'CtaOrdenante' => '0319849245',
+    'RfcEmisorCtaBen' => 'BCO010101AAA',
+    'CtaBeneficiario' => '0453946620',
+    'TipoCadPago' => '01',
+    'CertPago' => 'por confirmar como vamos a proceder con esto',
+    'CadPago' => 'por confirmar como vamos a proceder con esto',
+    'SelloPago' => 'por confirmar como vamos a proceder con esto',
+]));
+```
+
+#####Documento relacionado
+
+```php
+use Charles\CFDI\CFDI;
+use Charles\CFDI\Node\Complemento\Pagos\Pago;
+use Charles\CFDI\Node\Complemento\Pagos\DoctoRelacionado;
+
+$cfdi = new CFDI([...]);
+$pago = new Pago([...]);
+
+$pago->add(new DoctoRelacionado([
+    'IdDocumento' => '11111111-6EF0-4526-8962-2A5E8C040A6C',
+    'Serie' => 'ABC',
+    'Folio' => '123',
+    'MonedaDR' => 'USD',
+    'TipoCambioDR' => '21.00',
+    'MetodoDePagoDR' => 'PUE',
+    'NumParcialidad' => '2',
+    'ImpSaldoAnt' => '123.45',
+    'ImpPagado' => '123.45',
+    'ImpSaldoInsoluto' => '123.45',
+]));
+
+$cfdi->add($pago);
+```
+
+#####Traslado en pago
+
+```php
+use Charles\CFDI\CFDI;
+use Charles\CFDI\Node\Complemento\Pagos\Pago;
+use Charles\CFDI\Node\Complemento\Pagos\Impuesto\Traslado;
+
+$cfdi = new CFDI([...]);
+$pago = new Pago([...]);
+
+$pago->add(new Traslado([
+    'Impuesto' => '001',
+    'TipoFactor' => 'Tasa',
+    'TasaOCuota' => '0.160000',
+    'Importe' => '23000',
+]));
+
+$cfdi->add($pago);
+```
+
+#####Retención en pago
+
+```php
+use Charles\CFDI\CFDI;
+use Charles\CFDI\Node\Complemento\Pagos\Pago;
+use Charles\CFDI\Node\Complemento\Pagos\Impuesto\Retencion;
+
+$cfdi = new CFDI([...]);
+$pago = new Pago([...]);
+
+$pago->add(new Retencion([
+    'Impuesto' => '001',
+    'Importe' => '23000',
+]));
+
+$cfdi->add($pago);
+```
+
 
 ## XmlResolver
 
