@@ -212,7 +212,7 @@ class CFDI
      */
     public function save(string $path, string $name)
     {
-        $this->xml()->save($path.$name);
+        $this->xml()->save(rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $name);
     }
 
     public function setResolver(XmlResolver $resolver)
