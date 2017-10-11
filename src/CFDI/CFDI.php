@@ -139,7 +139,7 @@ class CFDI
     }
 
     /**
-     * Put the stamp on the voucher.
+     * Put the stamp on the invoice.
      *
      * @return void
      */
@@ -166,7 +166,7 @@ class CFDI
     }
 
     /**
-     * Put the certificate on the voucher.
+     * Put the certificate on the invoice.
      *
      * @return void
      */
@@ -203,7 +203,7 @@ class CFDI
     }
 
     /**
-     * Save the voucher.
+     * Save the invoice into a file composed by path and name.
      *
      * @param string    $path
      * @param string    $name
