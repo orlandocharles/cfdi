@@ -540,7 +540,11 @@ la interfaz `XmlResourceRetriever\Downloader\DownloaderInterface` y establecérs
 
 ## Licencia
 
-Este paquete no pertenece a ninguna comañia ni entidad gubernamental y esta bajo la Licencia MIT, si quieres saber más al respecto puedes ver el archivo de [Licencia](LICENSE) que se encuentra en este mismo repositorio.
+La librería eclipxe/cfdi tiene copyright © Carlos C Soto y está bajo la licencia MIT. 
+Ver el archivo de [Licencia](LICENSE) para más información.
+
+Los derechos de autor de algunas porciones de este proyecto pertenecen a Orlando Charles <me@orlandocharles.com>, 2017
+como parte del proyecto orlandocharles/cfdi (https://github.com/orlandocharles/cfdi) con licencia MIT.
 
 ## Donación
 
