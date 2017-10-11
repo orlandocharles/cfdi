@@ -49,6 +49,7 @@ composer require orlandocharles/cfdi
 ### CFDI
 
 ```php
+<?php
 use Charles\CFDI\CFDI;
 
 $cer = file_get_contents('.../csd/AAA010101AAA.cer.pem');
@@ -77,10 +78,11 @@ $cfdi = new CFDI([
 En este nodo se debe expresar la información de los comprobantes fiscales relacionados con el que se ésta generando, se deben expresar tantos numeros de nodos de CfdiRelacionado, como comprobantes se requieran relacionar.
 
 ```php
+<?php
 use Charles\CFDI\CFDI;
 use Charles\CFDI\Node\Relacionado;
 
-$cfdi = new CFDI([...]);
+$cfdi = new CFDI([]);
 
 $cfdi->add(new Relacionado([
     'UUID' => 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX',
@@ -100,10 +102,11 @@ $cfdi->add(new Relacionado([
 En este nodo se debe expresar la información del contribuyente que emite el comprobante fiscal.
 
 ```php
+<?php
 use Charles\CFDI\CFDI;
 use Charles\CFDI\Node\Emisor;
 
-$cfdi = new CFDI([...]);
+$cfdi = new CFDI([]);
 
 $cfdi->add(new Emisor([
     'Rfc' => 'XAXX010101000',
@@ -121,10 +124,11 @@ $cfdi->add(new Emisor([
 En este nodo se debe expresar la información del contribuyente receptor del comprobante.
 
 ```php
+<?php
 use Charles\CFDI\CFDI;
 use Charles\CFDI\Node\Receptor;
 
-$cfdi = new CFDI([...]);
+$cfdi = new CFDI([]);
 
 $cfdi->add(new Receptor([
     'Rfc' => 'XEXX010101000',
@@ -144,10 +148,11 @@ $cfdi->add(new Receptor([
 En este nodo se debe expresar la información detallada de un bien o servicio descrito en el comprobante.
 
 ```php
+<?php
 use Charles\CFDI\CFDI;
 use Charles\CFDI\Node\Concepto;
 
-$cfdi = new CFDI([...]);
+$cfdi = new CFDI([]);
 
 $cfdi->add(new Concepto([
     'ClaveProdServ' => '10317331',
