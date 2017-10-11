@@ -70,11 +70,11 @@ class CFDI
      * @param string        $cer
      * @param XmlResolver   $resolver
      */
-    public function __construct(array $data, string $cer, string $key, XmlResolver $resolver = null)
+    public function __construct(array $data, string $cer = '', string $key = '', XmlResolver $resolver = null)
     {
         $this->comprobante = new Comprobante($data, $this->version);
         $this->cer = $cer;
-        $this->key = $key;
+        $this->setPrivateKey($key);
         $this->resolver = $resolver ? : new XmlResolver('');
     }
 
@@ -223,6 +223,16 @@ class CFDI
     public function getResolver(): XmlResolver
     {
         return $this->resolver;
+    }
+
+    public function getPrivateKey(): string
+    {
+        return $this->key;
+    }
+
+    public function setPrivateKey(string $key)
+    {
+        $this->key = $key;
     }
 
     public function __toString(): string
