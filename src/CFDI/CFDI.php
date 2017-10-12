@@ -207,14 +207,13 @@ class CFDI
     /**
      * Save the invoice into a file composed by path and name.
      *
-     * @param string    $path
-     * @param string    $name
+     * @param string $filename
      *
      * @return void
      */
-    public function save(string $path, string $name)
+    public function save(string $filename)
     {
-        $this->xml()->save(rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $name);
+        $this->xml()->save($filename);
     }
 
     public function setResolver(XmlResolver $resolver)

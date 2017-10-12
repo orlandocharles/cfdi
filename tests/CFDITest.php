@@ -63,7 +63,7 @@ class CFDITest extends TestCase
     {
         $cfdi = new CFDI([], '', '');
         $tempfile = tempnam('', '');
-        $cfdi->save($tempfile, '');
+        $cfdi->save($tempfile);
 
         $this->assertFileExists($tempfile);
         $this->assertXmlStringEqualsXmlFile($tempfile, $cfdi->getXML());
