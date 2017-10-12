@@ -11,7 +11,6 @@
  * @link https://github.com/eclipxe13/cfdi GitHub
  * @link https://github.com/orlandocharles/cfdi Original project
  */
-
 namespace Charles\Tests\CFDI;
 
 use CfdiUtils\Certificado;
@@ -39,7 +38,7 @@ class CFDITest extends TestCase
 
         $cfdi = new CFDI([
             'NoCertificado' => '12345678901234567890',
-            'Foo' => 'Bar'
+            'Foo' => 'Bar',
         ], '', '');
 
         $this->assertXmlStringEqualsXmlFile($expectedFile, $cfdi->getXML());

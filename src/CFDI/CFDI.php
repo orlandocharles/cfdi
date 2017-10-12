@@ -11,7 +11,6 @@
  * @link https://github.com/eclipxe13/cfdi GitHub
  * @link https://github.com/orlandocharles/cfdi Original project
  */
-
 namespace Charles\CFDI;
 
 use CfdiUtils\CadenaOrigen;
@@ -105,7 +104,7 @@ class CFDI
         $this->comprobante->setAttributes(
             $this->comprobante->getElement(),
             [
-                'NoCertificado' => $certificado->getSerial()
+                'NoCertificado' => $certificado->getSerial(),
             ]
         );
     }
@@ -151,7 +150,7 @@ class CFDI
         $this->comprobante->setAttributes(
             $this->comprobante->getElement(),
             [
-                'Sello' => $this->getSello()
+                'Sello' => $this->getSello(),
             ]
         );
     }
@@ -178,7 +177,7 @@ class CFDI
         $this->comprobante->setAttributes(
             $this->comprobante->getElement(),
             [
-                'Certificado' => $this->getCertificado()
+                'Certificado' => $this->getCertificado(),
             ]
         );
     }

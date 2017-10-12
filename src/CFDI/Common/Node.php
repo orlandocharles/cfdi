@@ -11,7 +11,6 @@
  * @link https://github.com/eclipxe13/cfdi GitHub
  * @link https://github.com/orlandocharles/cfdi Original project
  */
-
 namespace Charles\CFDI\Common;
 
 use DOMDocument;
