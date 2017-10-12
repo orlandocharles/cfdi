@@ -1,6 +1,7 @@
 # Comprobante Fiscal Digital por Internet (CFDI v3.3)
 
-[![Travis](https://img.shields.io/travis/orlandocharles/cfdi.svg?style=flat-square)](https://travis-ci.org/orlandocharles/cfdi) [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square)](https://gitter.im/orlandocharles/cfdi) [![License](https://img.shields.io/github/license/orlandocharles/cfdi.svg?style=flat-square)](https://packagist.org/packages/orlandocharles/cfdi) [![Donate](https://img.shields.io/badge/Donate-PayPal-3b7bbf.svg?style=flat-square)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=H2KAFWPGPMKHJ)
+[![Travis](https://img.shields.io/travis/eclipxe13/cfdi.svg?style=flat-square)](https://travis-ci.org/eclipxe13/cfdi)
+[![License](https://img.shields.io/github/license/eclipxe13/cfdi.svg?style=flat-square)](https://packagist.org/packages/eclipxe13/cfdi)
 
 - [Instalación](#instalación)
 - [Uso](#uso)
@@ -14,7 +15,7 @@
 Para instalar el paquete mediante [Composer](https://getcomposer.org/).
 
 ```shell
-composer require orlandocharles/cfdi
+composer require eclipxe/cfdi
 ```
 
 ## Uso
