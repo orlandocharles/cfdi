@@ -11,9 +11,9 @@
  * @link https://github.com/eclipxe13/cfdi GitHub
  * @link https://github.com/orlandocharles/cfdi Original project
  */
-namespace Charles\CFDI\Node;
+namespace PhpCfdi\CFDI\Node;
 
-use Charles\CFDI\Common\Node;
+use PhpCfdi\CFDI\Common\Node;
 
 /**
  * This is the cfdi relacionado class.

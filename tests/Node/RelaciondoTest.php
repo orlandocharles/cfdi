@@ -11,9 +11,9 @@
  * @link https://github.com/eclipxe13/cfdi GitHub
  * @link https://github.com/orlandocharles/cfdi Original project
  */
-namespace Charles\Tests\CFDI\Node;
+namespace PhpCfdi\Tests\CFDI\Node;
 
-use Charles\CFDI\Node\Relacionado;
+use PhpCfdi\CFDI\Node\Relacionado;
 use PHPUnit\Framework\TestCase;
 
 /**

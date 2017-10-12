@@ -11,10 +11,10 @@
  * @link https://github.com/eclipxe13/cfdi GitHub
  * @link https://github.com/orlandocharles/cfdi Original project
  */
-namespace Charles\Tests\CFDI;
+namespace PhpCfdi\Tests\CFDI;
 
-use Charles\CFDI\CFDI;
-use Charles\CFDI\XmlResolver;
+use PhpCfdi\CFDI\CFDI;
+use PhpCfdi\CFDI\XmlResolver;
 use PHPUnit\Framework\TestCase;
 use XmlResourceRetriever\Downloader\DownloaderInterface;
 

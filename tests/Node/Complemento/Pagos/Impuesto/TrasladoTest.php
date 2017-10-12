@@ -11,10 +11,10 @@
  * @link https://github.com/eclipxe13/cfdi GitHub
  * @link https://github.com/orlandocharles/cfdi Original project
  */
-namespace Charles\Tests\CFDI\Node\Complemento\Pagos\Impuesto;
+namespace PhpCfdi\Tests\CFDI\Node\Complemento\Pagos\Impuesto;
 
-use Charles\CFDI\Common\Node;
-use Charles\CFDI\Node\Complemento\Pagos\Impuesto\Traslado;
+use PhpCfdi\CFDI\Common\Node;
+use PhpCfdi\CFDI\Node\Complemento\Pagos\Impuesto\Traslado;
 use PHPUnit\Framework\TestCase;
 
 class TrasladoTest extends TestCase

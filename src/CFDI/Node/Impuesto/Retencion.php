@@ -11,7 +11,7 @@
  * @link https://github.com/eclipxe13/cfdi GitHub
  * @link https://github.com/orlandocharles/cfdi Original project
  */
-namespace Charles\CFDI\Node\Impuesto;
+namespace PhpCfdi\CFDI\Node\Impuesto;
 
 /**
  * This is the retención class.

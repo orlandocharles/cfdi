@@ -11,7 +11,7 @@
  * @link https://github.com/eclipxe13/cfdi GitHub
  * @link https://github.com/orlandocharles/cfdi Original project
  */
-namespace Charles\CFDI\Common;
+namespace PhpCfdi\CFDI\Common;
 
 use DOMDocument;
 use DOMElement;

@@ -11,13 +11,13 @@
  * @link https://github.com/eclipxe13/cfdi GitHub
  * @link https://github.com/orlandocharles/cfdi Original project
  */
-namespace Charles\CFDI;
+namespace PhpCfdi\CFDI;
 
 use CfdiUtils\CadenaOrigen;
 use CfdiUtils\Certificado;
-use Charles\CFDI\Common\Node;
-use Charles\CFDI\Node\Comprobante;
 use DOMDocument;
+use PhpCfdi\CFDI\Common\Node;
+use PhpCfdi\CFDI\Node\Comprobante;
 
 /**
  * This is the cfdi class.

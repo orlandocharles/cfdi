@@ -11,11 +11,11 @@
  * @link https://github.com/eclipxe13/cfdi GitHub
  * @link https://github.com/orlandocharles/cfdi Original project
  */
-namespace Charles\Tests\CFDI\Common;
+namespace PhpCfdi\Tests\CFDI\Common;
 
-use Charles\CFDI\Common\Node;
 use DOMDocument;
 use DOMElement;
+use PhpCfdi\CFDI\Common\Node;
 use PHPUnit\Framework\TestCase;
 
 class NodeTest extends TestCase

@@ -11,12 +11,12 @@
  * @link https://github.com/eclipxe13/cfdi GitHub
  * @link https://github.com/orlandocharles/cfdi Original project
  */
-namespace Charles\Tests\CFDI;
+namespace PhpCfdi\Tests\CFDI;
 
 use CfdiUtils\Certificado;
-use Charles\CFDI\CFDI;
-use Charles\CFDI\Node\Emisor;
-use Charles\CFDI\XmlResolver;
+use PhpCfdi\CFDI\CFDI;
+use PhpCfdi\CFDI\Node\Emisor;
+use PhpCfdi\CFDI\XmlResolver;
 use PHPUnit\Framework\TestCase;
 
 class CFDITest extends TestCase

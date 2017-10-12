@@ -11,7 +11,7 @@
  * @link https://github.com/eclipxe13/cfdi GitHub
  * @link https://github.com/orlandocharles/cfdi Original project
  */
-namespace Charles\CFDI\Node\Complemento;
+namespace PhpCfdi\CFDI\Node\Complemento;
 
 /**
  * This is the timbre fiscal class.
