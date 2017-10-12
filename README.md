@@ -546,9 +546,3 @@ Ver el archivo de [Licencia](LICENSE) para más información.
 
 Los derechos de autor de algunas porciones de este proyecto pertenecen a Orlando Charles <me@orlandocharles.com>, 2017
 como parte del proyecto orlandocharles/cfdi (https://github.com/orlandocharles/cfdi) con licencia MIT.
-
-## Donación
-
-Este proyecto ayuda a que otros desarrolladores ahorren horas de trabajo.
-
-[![paypal](https://www.paypalobjects.com/es_XC/MX/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=H2KAFWPGPMKHJ)
