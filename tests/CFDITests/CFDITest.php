@@ -23,7 +23,7 @@ class CFDITest extends TestCase
 {
     public function testConstructWithMinimalParameters()
     {
-        $expectedFile = __DIR__ . '/assets/with-minimal-information.xml';
+        $expectedFile = __DIR__ . '/../assets/with-minimal-information.xml';
 
         $cfdi = new CFDI([], '', '');
 
@@ -34,7 +34,7 @@ class CFDITest extends TestCase
 
     public function testConstructWithRandomAttributes()
     {
-        $expectedFile = __DIR__ . '/assets/with-random-attributes.xml';
+        $expectedFile = __DIR__ . '/../assets/with-random-attributes.xml';
 
         $cfdi = new CFDI([
             'NoCertificado' => '12345678901234567890',
@@ -46,7 +46,7 @@ class CFDITest extends TestCase
 
     public function testAddMethodUsingEmisor()
     {
-        $expectedFile = __DIR__ . '/assets/with-only-emisor.xml';
+        $expectedFile = __DIR__ . '/../assets/with-only-emisor.xml';
 
         $emisor = new Emisor([
             'Rfc' => 'AAA010101AAA',
@@ -72,8 +72,8 @@ class CFDITest extends TestCase
 
     public function testAddCertificado()
     {
-        $cerfile = __DIR__ . '/assets/certs/CSD01_AAA010101AAA.cer';
-        $expectedFile = __DIR__ . '/assets/with-certificado.xml';
+        $cerfile = __DIR__ . '/../assets/certs/CSD01_AAA010101AAA.cer';
+        $expectedFile = __DIR__ . '/../assets/with-certificado.xml';
 
         $certificado = new Certificado($cerfile);
         $cfdi = new CFDI([], '', '');
@@ -107,10 +107,10 @@ class CFDITest extends TestCase
 
     public function testGetXmlResolverUsingLocalPath()
     {
-        $expectedFile = __DIR__ . '/assets/with-sello.xml';
+        $expectedFile = __DIR__ . '/../assets/with-sello.xml';
 
-        $cerFile = __DIR__ . '/assets/certs/CSD01_AAA010101AAA.cer';
-        $key = file_get_contents(__DIR__ . '/assets/certs/CSD01_AAA010101AAA.key.pem');
+        $cerFile = __DIR__ . '/../assets/certs/CSD01_AAA010101AAA.cer';
+        $key = file_get_contents(__DIR__ . '/../assets/certs/CSD01_AAA010101AAA.key.pem');
         $cfdi = new CFDI([], '', $key, new XmlResolver());
         $cfdi->addCertificado(new Certificado($cerFile));
 

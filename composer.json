@@ -34,7 +34,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "PhpCfdi\\CFDITests\\": "tests/"
+            "PhpCfdi\\CFDITests\\": "tests/CFDITests"
         }
     },
     "prefer-stable": true
