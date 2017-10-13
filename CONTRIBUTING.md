@@ -79,4 +79,5 @@ vendor/bin/parallel-lint src/ tests/
 vendor/bin/phpcs -sp src/ tests/
 vendor/bin/php-cs-fixer fix -v --dry-run
 vendor/bin/phpunit --coverage-text
+vendor/bin/phpstan.phar analyze -l max src/ tests/
 ```
