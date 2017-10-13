@@ -231,9 +231,41 @@ class CFDI
         return $this->key;
     }
 
+    /**
+     * Set the private key (MUST be a PEM file contents)
+     *
+     * @param string $key file contents or the path of the file
+     */
     public function setPrivateKey(string $key)
     {
+        if ('' !== $key && ! $this->isPrivateKey($key)) {
+            throw new \UnexpectedValueException('Invalid private key');
+        }
         $this->key = $key;
+    }
+
+    public function isPrivateKey(string $key): bool
+    {
+        $prefix = '-----BEGIN PRIVATE KEY-----';
+        $postfix = '-----END PRIVATE KEY-----';
+        $postLength = strlen($postfix);
+        $preLength = strlen($prefix);
+        $key = trim($key);
+        if (strlen($key) < $preLength + $postLength + 1000) {
+            return false;
+        }
+        if (0 !== strpos($key, $prefix)) {
+            return false;
+        }
+        if ($postfix !== substr($key, -$postLength)) {
+            return false;
+        }
+        $contents = str_replace(["\r", "\n"], '', $key);
+        $contents = substr($contents, $preLength, strlen($contents) - $preLength - $postLength);
+        if (false === base64_decode($contents, true)) {
+            return false;
+        }
+        return true;
     }
 
     public function __toString(): string

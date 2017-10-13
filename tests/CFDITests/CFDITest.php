@@ -114,4 +114,23 @@ class CFDITest extends TestCase
 
         $this->assertXmlStringEqualsXmlFile($expectedFile, $cfdi->getXML());
     }
+
+    public function testSetPrivateKeyWithInvalidData()
+    {
+        $cfdi = new CFDI([]);
+
+        $this->expectException(\UnexpectedValueException::class);
+
+        $cfdi->setPrivateKey('foo');
+    }
+
+    public function testSetPrivateKeyWithValidData()
+    {
+        $cfdi = new CFDI([]);
+        $privateKey = file_get_contents(__DIR__ . '/../assets/certs/CSD01_AAA010101AAA.key.pem');
+        $cfdi->setPrivateKey($privateKey);
+        $this->assertStringStartsWith('-----BEGIN PRIVATE KEY-----', $cfdi->getPrivateKey());
+        $cfdi->setPrivateKey('');
+        $this->assertSame('', $cfdi->getPrivateKey());
+    }
 }
