@@ -4,9 +4,8 @@ filter:
         - 'vendor/*'
 
 checks:
-    php:
-        code_rating: true
-        duplication: true
+    # Do all php checks
+    php: true
 
 tools:
     # Receive code coverage from travis
