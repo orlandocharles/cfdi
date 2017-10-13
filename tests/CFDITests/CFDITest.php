@@ -23,7 +23,7 @@ class CFDITest extends TestCase
 {
     public function testConstructWithMinimalParameters()
     {
-        $expectedFile = __DIR__ . '/../assets/with-minimal-information.xml';
+        $expectedFile = Util::asset('with-minimal-information.xml');
 
         $cfdi = new CFDI([]);
 
@@ -34,7 +34,7 @@ class CFDITest extends TestCase
 
     public function testConstructWithRandomAttributes()
     {
-        $expectedFile = __DIR__ . '/../assets/with-random-attributes.xml';
+        $expectedFile = Util::asset('with-random-attributes.xml');
 
         $cfdi = new CFDI([
             'NoCertificado' => '12345678901234567890',
@@ -46,7 +46,7 @@ class CFDITest extends TestCase
 
     public function testAddMethodUsingEmisor()
     {
-        $expectedFile = __DIR__ . '/../assets/with-only-emisor.xml';
+        $expectedFile = Util::asset('with-only-emisor.xml');
 
         $emisor = new Emisor([
             'Rfc' => 'AAA010101AAA',
@@ -72,8 +72,8 @@ class CFDITest extends TestCase
 
     public function testAddCertificado()
     {
-        $cerfile = __DIR__ . '/../assets/certs/CSD01_AAA010101AAA.cer';
-        $expectedFile = __DIR__ . '/../assets/with-certificado.xml';
+        $cerfile = Util::asset('certs/CSD01_AAA010101AAA.cer');
+        $expectedFile = Util::asset('with-certificado.xml');
 
         $certificado = new Certificado($cerfile);
         $cfdi = new CFDI([]);
@@ -107,9 +107,9 @@ class CFDITest extends TestCase
 
     public function testGetXmlResolverUsingLocalPath()
     {
-        $expectedFile = __DIR__ . '/../assets/with-sello.xml';
+        $expectedFile = Util::asset('with-sello.xml');
 
-        $key = file_get_contents(__DIR__ . '/../assets/certs/CSD01_AAA010101AAA.key.pem');
+        $key = file_get_contents(Util::asset('certs/CSD01_AAA010101AAA.key.pem'));
         $cfdi = new CFDI(['NoCertificado' => '30001000000300023708'], '', $key, new XmlResolver());
 
         $this->assertXmlStringEqualsXmlFile($expectedFile, $cfdi->getXML());
@@ -127,7 +127,7 @@ class CFDITest extends TestCase
     public function testSetPrivateKeyWithValidData()
     {
         $cfdi = new CFDI([]);
-        $privateKey = file_get_contents(__DIR__ . '/../assets/certs/CSD01_AAA010101AAA.key.pem');
+        $privateKey = file_get_contents(Util::asset('certs/CSD01_AAA010101AAA.key.pem'));
         $cfdi->setPrivateKey($privateKey);
         $this->assertStringStartsWith('-----BEGIN PRIVATE KEY-----', $cfdi->getPrivateKey());
         $cfdi->setPrivateKey('');
