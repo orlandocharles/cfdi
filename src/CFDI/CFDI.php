@@ -1,20 +1,22 @@
 <?php
-
 /*
- * This file is part of the CFDI project.
- *
- * (c) Orlando Charles <me@orlandocharles.com>
+ * This file is part of the eclipxe/cfdi library.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
+ *
+ * @copyright Copyright (c) Carlos C Soto <eclipxe13@gmail.com>
+ * @license http://opensource.org/licenses/MIT MIT
+ * @link https://github.com/eclipxe13/cfdi GitHub
+ * @link https://github.com/orlandocharles/cfdi Original project
  */
+namespace PhpCfdi\CFDI;
 
-namespace Charles\CFDI;
-
-use Charles\CFDI\Common\Node;
-use Charles\CFDI\Node\Comprobante;
+use CfdiUtils\CadenaOrigen;
+use CfdiUtils\Certificado;
 use DOMDocument;
-use XSLTProcessor;
+use PhpCfdi\CFDI\Common\Node;
+use PhpCfdi\CFDI\Node\Comprobante;
 
 /**
  * This is the cfdi class.
@@ -42,19 +44,14 @@ class CFDI
      *
      * @var string
      */
-    protected $key;
+    protected $key = '';
 
     /**
      * CSD cer.
      *
      * @var string
      */
-    protected $cer;
-
-    /**
-     * @var boolean
-     */
-    protected $xslt;
+    protected $cer = '';
 
     /**
      * Comprobante instance.
@@ -63,20 +60,19 @@ class CFDI
      */
     protected $comprobante;
 
+    /** @var XmlResolver */
+    protected $resolver;
+
     /**
      * Create a new cfdi instance.
      *
-     * @param array     $data
-     * @param string    $key
-     * @param string    $cer
-     * @param boolean   $xslt
+     * @param array         $data
+     * @param XmlResolver   $resolver
      */
-    public function __construct(array $data, string $cer, string $key, bool $xslt = false)
+    public function __construct(array $data, XmlResolver $resolver = null)
     {
         $this->comprobante = new Comprobante($data, $this->version);
-        $this->cer = $cer;
-        $this->key = $key;
-        $this->xslt = $xslt;
+        $this->resolver = $resolver ? : new XmlResolver('');
     }
 
     /**
@@ -92,30 +88,35 @@ class CFDI
     }
 
     /**
+     * Change the initial certificate with the current certificate data and also
+     * set the NoCertificado information
+     *
+     * @param Certificado $certificado
+     */
+    public function addCertificado(Certificado $certificado)
+    {
+        $this->cer = base64_encode(file_get_contents($certificado->getFilename()));
+        $this->comprobante->setAttributes(
+            $this->comprobante->getElement(),
+            [
+                'NoCertificado' => $certificado->getSerial(),
+            ]
+        );
+    }
+
+    /**
      * Gets the original string.
      *
      * @return string
      */
     public function getCadenaOriginal(): string
     {
-        $xsl = new DOMDocument();
-
-        if ($this->xslt) {
-            $path = __DIR__.'/Utils/cadenaoriginal_3_3.xslt';
-            $xslt = file_get_contents($path);
-        } else {
-            $xslt = static::XSL_ENDPOINT;
-        }
-
-        $xsl->load($xslt);
-
-        $xslt = new XSLTProcessor();
-        $xslt->importStyleSheet($xsl);
-
-        $xml = new DOMDocument();
-        $xml->loadXML($this->comprobante->getDocument()->saveXML());
-
-        return (string) $xslt->transformToXml($xml);
+        $location = $this->resolver->resolve(static::XSL_ENDPOINT, 'XSLT');
+        $builder = new CadenaOrigen();
+        return $builder->build(
+            $this->comprobante->getDocument()->saveXML(),
+            $location
+        );
     }
 
     /**
@@ -125,23 +126,26 @@ class CFDI
      */
     protected function getSello(): string
     {
+        if ('' === $this->key) {
+            return '';
+        }
         $pkey = openssl_get_privatekey($this->key);
-        openssl_sign(@$this->getCadenaOriginal(), $signature, $pkey, OPENSSL_ALGO_SHA256);
+        openssl_sign($this->getCadenaOriginal(), $signature, $pkey, OPENSSL_ALGO_SHA256);
         openssl_free_key($pkey);
         return base64_encode($signature);
     }
 
     /**
-     * Put the stamp on the voucher.
+     * Put the stamp on the invoice.
      *
      * @return void
      */
     protected function putSello()
     {
-        $this->comprobante->setAtributes(
+        $this->comprobante->setAttributes(
             $this->comprobante->getElement(),
             [
-                'Sello' => $this->getSello()
+                'Sello' => $this->getSello(),
             ]
         );
     }
@@ -159,16 +163,16 @@ class CFDI
     }
 
     /**
-     * Put the certificate on the voucher.
+     * Put the certificate on the invoice.
      *
      * @return void
      */
     protected function putCertificado()
     {
-        $this->comprobante->setAtributes(
+        $this->comprobante->setAttributes(
             $this->comprobante->getElement(),
             [
-                'Certificado' => $this->getCertificado()
+                'Certificado' => $this->getCertificado(),
             ]
         );
     }
@@ -196,15 +200,71 @@ class CFDI
     }
 
     /**
-     * Save the voucher.
+     * Save the invoice into a file composed by path and name.
      *
-     * @param string    $path
-     * @param string    $name
+     * @param string $filename
      *
      * @return void
      */
-    public function save(string $path, string $name)
+    public function save(string $filename)
     {
-        $this->xml()->save($path.$name);
+        $this->xml()->save($filename);
+    }
+
+    public function setResolver(XmlResolver $resolver)
+    {
+        $this->resolver = $resolver;
+    }
+
+    public function getResolver(): XmlResolver
+    {
+        return $this->resolver;
+    }
+
+    public function getPrivateKey(): string
+    {
+        return $this->key;
+    }
+
+    /**
+     * Set the private key (MUST be a PEM file contents)
+     *
+     * @param string $key file contents or the path of the file
+     */
+    public function setPrivateKey(string $key)
+    {
+        if ('' !== $key && ! $this->isPrivateKey($key)) {
+            throw new \UnexpectedValueException('Invalid private key');
+        }
+        $this->key = $key;
+    }
+
+    public function isPrivateKey(string $key): bool
+    {
+        $prefix = '-----BEGIN PRIVATE KEY-----';
+        $postfix = '-----END PRIVATE KEY-----';
+        $postLength = strlen($postfix);
+        $preLength = strlen($prefix);
+        $key = trim($key);
+        if (strlen($key) < $preLength + $postLength + 1000) {
+            return false;
+        }
+        if (0 !== strpos($key, $prefix)) {
+            return false;
+        }
+        if ($postfix !== substr($key, -$postLength)) {
+            return false;
+        }
+        $contents = str_replace(["\r", "\n"], '', $key);
+        $contents = substr($contents, $preLength, strlen($contents) - $preLength - $postLength);
+        if (false === base64_decode($contents, true)) {
+            return false;
+        }
+        return true;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getXML();
     }
 }

@@ -10,21 +10,21 @@
  * @link https://github.com/eclipxe13/cfdi GitHub
  * @link https://github.com/orlandocharles/cfdi Original project
  */
-namespace PhpCfdi\CFDI\Node;
+namespace PhpCfdi\CFDI\Node\Complemento\Pagos\Impuesto;
 
 use PhpCfdi\CFDI\Common\Node;
 
 /**
- * This is the parte class.
+ * This is the impuesto class.
  *
  * @author Orlando Charles <me@orlandocharles.com>
  */
-class Parte extends Node
+abstract class Impuesto extends Node
 {
     /**
-     * Node name.
+     * Wrapper node name.
      *
      * @var string
      */
-    protected $nodeName = 'cfdi:Parte';
+    protected $wrapperNodeName = 'pago10:Impuestos';
 }

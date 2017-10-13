@@ -10,21 +10,21 @@
  * @link https://github.com/eclipxe13/cfdi GitHub
  * @link https://github.com/orlandocharles/cfdi Original project
  */
-namespace PhpCfdi\CFDI\Node;
+namespace PhpCfdi\CFDI\Node\Complemento\Pagos;
 
 use PhpCfdi\CFDI\Common\Node;
 
 /**
- * This is the parte class.
+ * This is the timbre fiscal class.
  *
  * @author Orlando Charles <me@orlandocharles.com>
  */
-class Parte extends Node
+class DoctoRelacionado extends Node
 {
     /**
      * Node name.
      *
      * @var string
      */
-    protected $nodeName = 'cfdi:Parte';
+    protected $nodeName = 'pago10:DoctoRelacionado';
 }

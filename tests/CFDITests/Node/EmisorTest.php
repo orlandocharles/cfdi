@@ -1,17 +1,18 @@
 <?php
-
 /*
- * This file is part of the CFDI project.
- *
- * (c) Orlando Charles <me@orlandocharles.com>
+ * This file is part of the eclipxe/cfdi library.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
+ *
+ * @copyright Copyright (c) Carlos C Soto <eclipxe13@gmail.com>
+ * @license http://opensource.org/licenses/MIT MIT
+ * @link https://github.com/eclipxe13/cfdi GitHub
+ * @link https://github.com/orlandocharles/cfdi Original project
  */
+namespace PhpCfdi\CFDITests\Node;
 
-namespace Charles\Tests\CFDI;
-
-use Charles\CFDI\Node\Emisor;
+use PhpCfdi\CFDI\Node\Emisor;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -22,7 +23,7 @@ use PHPUnit\Framework\TestCase;
 class EmisorTest extends TestCase
 {
     /**
-     *
+     * @var Emisor
      */
     protected $emisor;
 

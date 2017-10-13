@@ -10,21 +10,12 @@
  * @link https://github.com/eclipxe13/cfdi GitHub
  * @link https://github.com/orlandocharles/cfdi Original project
  */
-namespace PhpCfdi\CFDI\Node;
+namespace PhpCfdi\CFDITests;
 
-use PhpCfdi\CFDI\Common\Node;
-
-/**
- * This is the parte class.
- *
- * @author Orlando Charles <me@orlandocharles.com>
- */
-class Parte extends Node
+class Util
 {
-    /**
-     * Node name.
-     *
-     * @var string
-     */
-    protected $nodeName = 'cfdi:Parte';
+    public static function asset($file = '')
+    {
+        return dirname(__DIR__, 1) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . $file;
+    }
 }

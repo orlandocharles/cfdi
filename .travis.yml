@@ -4,15 +4,28 @@ sudo: false
 
 php:
   - 7.0
+  - 7.1
 
-install:
-  - travis_retry composer install --prefer-dist -n
+before_script:
+  - travis_retry composer self-update
+  - travis_retry composer install --no-interaction --prefer-dist
 
-script: vendor/bin/phpunit
+script:
+  - mkdir -p build/tests/
+  - vendor/bin/parallel-lint src/ tests/
+  - vendor/bin/phpcs -sp src/ tests/
+  - vendor/bin/php-cs-fixer fix -v --dry-run
+  - vendor/bin/phpunit --coverage-text --coverage-clover=build/tests/coverage.xml
+  - vendor/bin/phpstan.phar analyze -l max src/ tests/ || true
+
+after_script:
+  - |
+    if [[ $TRAVIS_PHP_VERSION == '7.0' ]]; then
+      wget https://scrutinizer-ci.com/ocular.phar
+      php ocular.phar code-coverage:upload --format=php-clover build/tests/coverage.xml
+    fi
 
 notifications:
   email:
-    recipients:
-      - me@orlandocharles.com
     on_success: never
     on_failure: always

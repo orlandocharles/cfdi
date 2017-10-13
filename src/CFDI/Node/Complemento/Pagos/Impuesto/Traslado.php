@@ -10,21 +10,26 @@
  * @link https://github.com/eclipxe13/cfdi GitHub
  * @link https://github.com/orlandocharles/cfdi Original project
  */
-namespace PhpCfdi\CFDI\Node;
-
-use PhpCfdi\CFDI\Common\Node;
+namespace PhpCfdi\CFDI\Node\Complemento\Pagos\Impuesto;
 
 /**
- * This is the parte class.
+ * This is the traslado class.
  *
  * @author Orlando Charles <me@orlandocharles.com>
  */
-class Parte extends Node
+class Traslado extends Impuesto
 {
+    /**
+     * Parent node name.
+     *
+     * @var string
+     */
+    protected $parentNodeName = 'pago10:Traslados';
+
     /**
      * Node name.
      *
      * @var string
      */
-    protected $nodeName = 'cfdi:Parte';
+    protected $nodeName = 'pago10:Traslado';
 }

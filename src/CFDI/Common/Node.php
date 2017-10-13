@@ -1,15 +1,16 @@
 <?php
-
 /*
- * This file is part of the CFDI project.
- *
- * (c) Orlando Charles <me@orlandocharles.com>
+ * This file is part of the eclipxe/cfdi library.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
+ *
+ * @copyright Copyright (c) Carlos C Soto <eclipxe13@gmail.com>
+ * @license http://opensource.org/licenses/MIT MIT
+ * @link https://github.com/eclipxe13/cfdi GitHub
+ * @link https://github.com/orlandocharles/cfdi Original project
  */
-
-namespace Charles\CFDI\Common;
+namespace PhpCfdi\CFDI\Common;
 
 use DOMDocument;
 use DOMElement;
@@ -20,7 +21,7 @@ use DOMNodeList;
  *
  * @author Orlando Charles <me@orlandocharles.com>
  */
-class Node
+abstract class Node
 {
     /**
      * Define the node name.
@@ -32,9 +33,15 @@ class Node
     /**
      * Define the parent node name, rename this attribute in inherit class.
      *
-     * @var string|null
+     * @var string
      */
-    protected $parentNodeName = null;
+    protected $parentNodeName = '';
+
+    /**
+     * Define the wrapper node name (node grandparent), rename this attribute in inherit class
+     * @var string
+     */
+    protected $wrapperNodeName = '';
 
     /**
      * Node document.
@@ -60,11 +67,17 @@ class Node
     /**
      * Create a new node instance.
      *
-     * @param array    $attr
+     * @param array $nodeAttributes
+     * @param array $parentAttributes
+     * @param array $wrapperAttributes
      */
-    public function __construct(...$attr)
+    public function __construct(array $nodeAttributes = [], array $parentAttributes = [], array $wrapperAttributes = [])
     {
-        $this->attr = $attr;
+        $this->attr = [
+            'node' => $nodeAttributes,
+            'parent' => $parentAttributes,
+            'wrapper' => $wrapperAttributes,
+        ];
 
         $this->document = new DOMDocument('1.0', 'UTF-8');
         $this->document->preserveWhiteSpace = false;
@@ -72,7 +85,7 @@ class Node
 
         $this->element = $this->document->createElement($this->getNodeName());
         $this->document->appendChild($this->element);
-        $this->setAtributes($this->element, $this->getAttr());
+        $this->setAttributes($this->element, $nodeAttributes);
     }
 
     /**
@@ -83,49 +96,48 @@ class Node
      */
     public function add(Node $node)
     {
-        $wrapperElement = null;
-
+        // create the nodeElement with all contents
         $nodeElement = $this->document->createElement($node->getNodeName());
-        $this->setAtributes($nodeElement, $node->getAttr());
-
+        $this->setAttributes($nodeElement, $node->getAttr());
         foreach ($node->element->childNodes as $child) {
             $nodeElement->appendChild(
                 $this->document->importNode($child, true)
             );
         }
 
-        if ($wrapperName = $node->getWrapperNodeName()) {
-            $wrapperElement = $this->getDirectChildElementByName(
-                $this->element->childNodes,
-                $wrapperName
-            );
+        // get or create the wrapper element if needed
+        $wrapperElement = $this->getDirectChildOrCreate(
+            $this->element,
+            $node->getWrapperNodeName(),
+            $node->getAttr('wrapper')
+        );
 
-            if (!$wrapperElement) {
-                $wrapperElement = $this->document->createElement($wrapperName);
-                $this->element->appendChild($wrapperElement);
-                $this->setAtributes($wrapperElement, $node->getAttr('wrapper'));
-            }
+        // get or create the parent element if needed
+        $parentNode = $this->getDirectChildOrCreate(
+            $wrapperElement,
+            $node->getParentNodeName(),
+            $node->getAttr('parent')
+        );
+
+        // append the created element
+        $parentNode->appendChild($nodeElement);
+    }
+
+    protected function getDirectChildOrCreate(DOMElement $owner, string $name, array $attributes): DOMElement
+    {
+        if ('' === $name) {
+            return $this->element;
         }
-
-        if ($parentName = $node->getParentNodeName()) {
-            $currentElement = ($wrapperElement) ? $wrapperElement : $this->element ;
-
-            $parentNode = $this->getDirectChildElementByName(
-                $currentElement->childNodes,
-                $parentName
-            );
-
-            if (!$parentNode) {
-                $parentElement = $this->document->createElement($parentName);
-                $currentElement->appendChild($parentElement);
-                $parentElement->appendChild($nodeElement);
-                $this->setAtributes($parentElement, $node->getAttr('parent'));
-            } else {
-                $parentNode->appendChild($nodeElement);
-            }
-        } else {
-            $this->element->appendChild($nodeElement);
+        $created = $this->getDirectChildElementByName(
+            $owner->childNodes,
+            $name
+        );
+        if (null === $created) {
+            $created = $this->document->createElement($name);
+            $owner->appendChild($created);
+            $this->setAttributes($created, $attributes);
         }
+        return $created;
     }
 
     /**
@@ -154,12 +166,10 @@ class Node
      *
      * @return void
      */
-    public function setAtributes(DOMElement $element, array $attr = null)
+    public function setAttributes(DOMElement $element, array $attr)
     {
-        if (!is_null($attr)) {
-            foreach ($attr as $key => $value) {
-                $element->setAttribute($key, $value);
-            }
+        foreach ($attr as $key => $value) {
+            $element->setAttribute($key, $value);
         }
     }
 
@@ -188,37 +198,32 @@ class Node
      *
      * @param string    $index
      *
-     * @return array|null
+     * @return array
      */
-    public function getAttr(string $index = 'node')
+    public function getAttr(string $index = 'node'): array
     {
-        $attrIndex = ['node', 'parent', 'wrapper'];
-
-        if (in_array($index, $attrIndex)) {
-            $index = array_search($index, $attrIndex);
-        } else {
-            $index = 0;
+        if (! array_key_exists($index, $this->attr)) {
+            $index = 'node';
         }
-
-        return (isset($this->attr[$index])) ? $this->attr[$index] : null;
+        return $this->attr[$index];
     }
 
     /**
      * Get wrapper node name.
      *
-     * @return string|null
+     * @return string
      */
-    public function getWrapperNodeName()
+    public function getWrapperNodeName(): string
     {
-        return (isset($this->wrapperNodeName)) ? $this->wrapperNodeName : null;
+        return $this->wrapperNodeName;
     }
 
     /**
      * Get parent node name.
      *
-     * @return string|null
+     * @return string
      */
-    public function getParentNodeName()
+    public function getParentNodeName(): string
     {
         return $this->parentNodeName;
     }

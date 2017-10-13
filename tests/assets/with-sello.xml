@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante
+        xmlns:cfdi="http://www.sat.gob.mx/cfd/3"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd"
+        Version="3.3"
+        NoCertificado="30001000000300023708"
+        Certificado=""
+        Sello="BUuKBV0BRdZLJjI1G+GmDNzEBOYvzwDOZtoTMSrF2fucJy+v8R2fTNoBp1ajij9hsqZN1Ios0IhlJa6mDysYqZJ1QXHzCr5aVCjQw/UTxx6XngLn1T7sqNsW03HK29QmgYLuSytUjwiVjbhZhNvOh6BE1UNfZHoA1sbIvErgJD8z6qLZ+Hq/1hUkPL1Te2enpCOYq96BDbyg3MPqgEvXEEgoRGUNOa2B6/IyBCoJtRRPwFsp9H0GfvV9ZOaAQc3XU8gq3ezesp1KMIq+B100zROqVIl/SH369B3pq32LUO0vMmHEE2uXMv1AVNqHDHCeyGbZZZs7IDUDesLlkwUccw=="
+/>

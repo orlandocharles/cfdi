@@ -1,0 +1,14 @@
+filter:
+    excluded_paths:
+        - 'tests/*'
+        - 'vendor/*'
+
+checks:
+    # Do all php checks
+    php: true
+
+tools:
+    # Receive code coverage from travis
+    external_code_coverage: true
+    # Disable code style checks (phpcs), already made in travis-ci
+    php_code_sniffer: false
