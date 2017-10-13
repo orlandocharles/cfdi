@@ -198,7 +198,7 @@ abstract class Node
      *
      * @param string    $index
      *
-     * @return array|null
+     * @return array
      */
     public function getAttr(string $index = 'node'): array
     {
