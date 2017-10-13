@@ -53,15 +53,11 @@ composer require eclipxe/cfdi
 <?php
 use PhpCfdi\CFDI\CFDI;
 
-$cer = file_get_contents('.../csd/AAA010101AAA.cer.pem');
-$key = file_get_contents('.../csd/AAA010101AAA.key.pem');
-
 $cfdi = new CFDI([
     'Serie' => 'A',
     'Folio' => 'A0101',
     'Fecha' => '2017-06-17T03:00:00',
     'FormaPago' => '01',
-    'NoCertificado' => '00000000000000000000',
     'CondicionesDePago' => '',
     'Subtotal' => '',
     'Descuento' => '0.00',
@@ -71,7 +67,10 @@ $cfdi = new CFDI([
     'TipoDeComprobante' => 'I',
     'MetodoPago' => 'PUE',
     'LugarExpedicion' => '64000',
-], $cer, $key);
+]);
+
+$cfdi->addCertificado(new \CfdiUtils\Certificado('.../csd/AAA010101AAA.cer'));
+$cfdi->setPrivateKey(file_get_contents('.../csd/AAA010101AAA.key.pem'));
 ```
 
 ### CFDI Relacionado
@@ -85,11 +84,14 @@ use PhpCfdi\CFDI\Node\Relacionado;
 
 $cfdi = new CFDI([]);
 
-$cfdi->add(new Relacionado([
-    'UUID' => 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX',
-], [
-    'TipoRelacion' => '01',
-]));
+$cfdi->add(new Relacionado(
+    [ // atributos del nodo cfdi:Relacionado
+        'UUID' => 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'
+    ],
+    [ // atributos del nodo padre cfdi:Relacionados
+        'TipoRelacion' => '01'
+    ]
+));
 ```
 
 ```xml
@@ -208,11 +210,12 @@ $cfdi->add(new Retencion([
 ##### Retención en concepto
 
 ```php
+<?php
 use PhpCfdi\CFDI\CFDI;
 use PhpCfdi\CFDI\Node\Concepto;
 use PhpCfdi\CFDI\Node\Impuesto\Retencion;
 
-$cfdi = new CFDI([...]);
+$cfdi = new CFDI([]);
 
 $concepto = new Concepto([
     'ClaveProdServ' => '10317331',
@@ -254,11 +257,12 @@ $cfdi->add(new Traslado([
 ##### Traslado en concepto
 
 ```php
+<?php
 use PhpCfdi\CFDI\CFDI;
 use PhpCfdi\CFDI\Node\Concepto;
 use PhpCfdi\CFDI\Node\Impuesto\Traslado;
 
-$cfdi = new CFDI([...]);
+$cfdi = new CFDI([]);
 
 $concepto = new Concepto([
     'ClaveProdServ' => '10317331',
@@ -284,11 +288,12 @@ $cfdi->add($concepto);
 En este nodo se debe expresar la información aduanera correspondiente a cada concepto cuando se trate de ventas de primera mano de mercancías importadas
 
 ```php
+<?php
 use PhpCfdi\CFDI\CFDI;
 use PhpCfdi\CFDI\Node\Concepto;
 use PhpCfdi\CFDI\Node\InformacionAduanera;
 
-$cfdi = new CFDI([...]);
+$cfdi = new CFDI([]);
 
 $concepto = new Concepto([
     'ClaveProdServ' => '10317331',
@@ -322,12 +327,13 @@ $cfdi->add($concepto);
 En este nodo se puede expresar el número de cuenta predial con el que fue registrado el inmueble en el sistema catastral de la entidad federativa de que trate, o bien para incorporar los datos de identificación del certificado de participación inmobiliaria no amortizable.
 
 ```php
+<?php
 use PhpCfdi\CFDI\CFDI;
 use PhpCfdi\CFDI\Node\Concepto;
 use PhpCfdi\CFDI\Node\CuentaPredial;
 
-$cfdi = new CFDI([...]);
-$concepto = new Concepto([...]);
+$cfdi = new CFDI([]);
+$concepto = new Concepto();
 
 $concepto->add(new CuentaPredial([
     'Numero' => '00000',
@@ -341,11 +347,12 @@ $cfdi->add($concepto);
 En este nodo se pueden expresar las partes o componentes que integran la totalidad del concepto expresado en el comprobante fiscal digital por Internet.
 
 ```php
+<?php
 use PhpCfdi\CFDI\CFDI;
 use PhpCfdi\CFDI\Node\Concepto;
 use PhpCfdi\CFDI\Node\Parte;
 
-$cfdi = new CFDI([...]);
+$cfdi = new CFDI([]);
 
 $concepto = new Concepto([
     'ClaveProdServ' => '27113201',
@@ -416,10 +423,11 @@ $cfdi->add($concepto);
 ### Pago
 
 ```php
+<?php
 use PhpCfdi\CFDI\CFDI;
 use PhpCfdi\CFDI\Node\Complemento\Pagos\Pago;
 
-$cfdi = new CFDI([...]);
+$cfdi = new CFDI([]);
 
 $cfdi->add(new Pago([
     'FechaPago' => '2017-01-01T12:00:00',
@@ -443,12 +451,13 @@ $cfdi->add(new Pago([
 #####Documento relacionado
 
 ```php
+<?php
 use PhpCfdi\CFDI\CFDI;
 use PhpCfdi\CFDI\Node\Complemento\Pagos\Pago;
 use PhpCfdi\CFDI\Node\Complemento\Pagos\DoctoRelacionado;
 
-$cfdi = new CFDI([...]);
-$pago = new Pago([...]);
+$cfdi = new CFDI([]);
+$pago = new Pago();
 
 $pago->add(new DoctoRelacionado([
     'IdDocumento' => '11111111-6EF0-4526-8962-2A5E8C040A6C',
@@ -469,12 +478,13 @@ $cfdi->add($pago);
 #####Traslado en pago
 
 ```php
+<?php
 use PhpCfdi\CFDI\CFDI;
 use PhpCfdi\CFDI\Node\Complemento\Pagos\Pago;
 use PhpCfdi\CFDI\Node\Complemento\Pagos\Impuesto\Traslado;
 
-$cfdi = new CFDI([...]);
-$pago = new Pago([...]);
+$cfdi = new CFDI([]);
+$pago = new Pago();
 
 $pago->add(new Traslado([
     'Impuesto' => '001',
@@ -489,12 +499,13 @@ $cfdi->add($pago);
 #####Retención en pago
 
 ```php
+<?php
 use PhpCfdi\CFDI\CFDI;
 use PhpCfdi\CFDI\Node\Complemento\Pagos\Pago;
 use PhpCfdi\CFDI\Node\Complemento\Pagos\Impuesto\Retencion;
 
-$cfdi = new CFDI([...]);
-$pago = new Pago([...]);
+$cfdi = new CFDI([]);
+$pago = new Pago();
 
 $pago->add(new Retencion([
     'Impuesto' => '001',
@@ -516,6 +527,7 @@ Si desea descargar recursivamente los recursos del SAT para almacenarlos localme
 y reutilizar los archivos XSLT del SAT.
 
 ```php
+<?php
 use PhpCfdi\CFDI\CFDI;
 use PhpCfdi\CFDI\XmlResolver;
 
@@ -533,7 +545,7 @@ $resolver = new XmlResolver('/cfdi/cache/');
 $cfdi->setResolver($resolver);
 
 // también lo puede establecer desde el momento de su construcción
-new CFDI($attributes, $cer, $key, $resolver);
+$cfdi = new CFDI([], $resolver);
 ```
 
 Si se encuentra detrás de un proxy o quiere usar sus propios métodos de descarga puede implementar

@@ -39,7 +39,7 @@ class CFDITest extends TestCase
         $cfdi = new CFDI([
             'NoCertificado' => '12345678901234567890',
             'Foo' => 'Bar',
-        ], '', '');
+        ]);
 
         $this->assertXmlStringEqualsXmlFile($expectedFile, $cfdi->getXML());
     }
@@ -109,8 +109,10 @@ class CFDITest extends TestCase
     {
         $expectedFile = Util::asset('with-sello.xml');
 
+        $cfdi = new CFDI(['NoCertificado' => '30001000000300023708'], new XmlResolver());
+
         $key = file_get_contents(Util::asset('certs/CSD01_AAA010101AAA.key.pem'));
-        $cfdi = new CFDI(['NoCertificado' => '30001000000300023708'], '', $key, new XmlResolver());
+        $cfdi->setPrivateKey($key);
 
         $this->assertXmlStringEqualsXmlFile($expectedFile, $cfdi->getXML());
     }

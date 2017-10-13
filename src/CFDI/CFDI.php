@@ -45,14 +45,14 @@ class CFDI
      *
      * @var string
      */
-    protected $key;
+    protected $key = '';
 
     /**
      * CSD cer.
      *
      * @var string
      */
-    protected $cer;
+    protected $cer = '';
 
     /**
      * Comprobante instance.
@@ -68,15 +68,11 @@ class CFDI
      * Create a new cfdi instance.
      *
      * @param array         $data
-     * @param string        $key
-     * @param string        $cer
      * @param XmlResolver   $resolver
      */
-    public function __construct(array $data, string $cer = '', string $key = '', XmlResolver $resolver = null)
+    public function __construct(array $data, XmlResolver $resolver = null)
     {
         $this->comprobante = new Comprobante($data, $this->version);
-        $this->cer = $cer;
-        $this->setPrivateKey($key);
         $this->resolver = $resolver ? : new XmlResolver('');
     }
 
