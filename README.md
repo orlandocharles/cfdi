@@ -11,8 +11,6 @@
 
 ## Instalación
 
-> Nota: el proyecto se encuentra en desarrollo.
-
 Para instalar el paquete mediante [Composer](https://getcomposer.org/).
 
 ```shell
@@ -575,7 +573,7 @@ como parte del proyecto orlandocharles/cfdi (https://github.com/orlandocharles/c
 [license]: https://github.com/eclipxe13/cfdi/blob/master/LICENSE
 [build]: https://travis-ci.org/eclipxe13/cfdi?branch=master
 [quality]: https://scrutinizer-ci.com/g/eclipxe13/cfdi/
-[sensiolabs]: https://insight.sensiolabs.com/projects/ffa9eb49-58e3-4532-acdd-f8089d46ad73
+[sensiolabs]: https://insight.sensiolabs.com/projects/90e39c57-123f-46e5-8a4d-2e83d2a98824
 [coverage]: https://scrutinizer-ci.com/g/eclipxe13/cfdi/code-structure/master/code-coverage
 [downloads]: https://packagist.org/packages/eclipxe/cfdi
 
@@ -584,6 +582,6 @@ como parte del proyecto orlandocharles/cfdi (https://github.com/orlandocharles/c
 [badge-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [badge-build]: https://img.shields.io/travis/eclipxe13/cfdi/master.svg?style=flat-square
 [badge-quality]: https://img.shields.io/scrutinizer/g/eclipxe13/cfdi/master.svg?style=flat-square
-[badge-sensiolabs]: https://insight.sensiolabs.com/projects/ffa9eb49-58e3-4532-acdd-f8089d46ad73/mini.png
+[badge-sensiolabs]: https://insight.sensiolabs.com/projects/90e39c57-123f-46e5-8a4d-2e83d2a98824/mini.png
 [badge-coverage]: https://img.shields.io/scrutinizer/coverage/g/eclipxe13/cfdi/master.svg?style=flat-square
 [badge-downloads]: https://img.shields.io/packagist/dt/eclipxe/cfdi.svg?style=flat-square
