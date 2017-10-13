@@ -11,7 +11,7 @@
  * @link https://github.com/eclipxe13/cfdi GitHub
  * @link https://github.com/orlandocharles/cfdi Original project
  */
-namespace PhpCfdi\Tests\CFDI\Node\Complemento\Pagos;
+namespace PhpCfdi\CFDITests\Node\Complemento\Pagos;
 
 use PhpCfdi\CFDI\Common\Node;
 use PhpCfdi\CFDI\Node\Complemento\Pagos\Pago;

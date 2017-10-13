@@ -11,7 +11,7 @@
  * @link https://github.com/eclipxe13/cfdi GitHub
  * @link https://github.com/orlandocharles/cfdi Original project
  */
-namespace PhpCfdi\Tests\CFDI\Node;
+namespace PhpCfdi\CFDITests\Node;
 
 use PhpCfdi\CFDI\Node\CuentaPredial;
 use PHPUnit\Framework\TestCase;

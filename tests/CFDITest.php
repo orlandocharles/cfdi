@@ -11,7 +11,7 @@
  * @link https://github.com/eclipxe13/cfdi GitHub
  * @link https://github.com/orlandocharles/cfdi Original project
  */
-namespace PhpCfdi\Tests\CFDI;
+namespace PhpCfdi\CFDITests;
 
 use CfdiUtils\Certificado;
 use PhpCfdi\CFDI\CFDI;
