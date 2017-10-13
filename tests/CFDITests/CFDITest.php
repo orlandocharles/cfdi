@@ -25,7 +25,7 @@ class CFDITest extends TestCase
     {
         $expectedFile = __DIR__ . '/../assets/with-minimal-information.xml';
 
-        $cfdi = new CFDI([], '', '');
+        $cfdi = new CFDI([]);
 
         $this->assertFalse($cfdi->getResolver()->hasLocalPath());
         $this->assertXmlStringEqualsXmlFile($expectedFile, $cfdi->getXML());
@@ -53,7 +53,7 @@ class CFDITest extends TestCase
             'Nombre' => 'ACCEM SERVICIOS EMPRESARIALES SC',
             'RegimenFiscal' => '601',
         ]);
-        $cfdi = new CFDI([], '', '');
+        $cfdi = new CFDI([]);
         $cfdi->add($emisor);
 
         $this->assertXmlStringEqualsXmlFile($expectedFile, $cfdi->getXML());
@@ -61,7 +61,7 @@ class CFDITest extends TestCase
 
     public function testSaveMethodCreatesAFileAndIsEqualToGetXml()
     {
-        $cfdi = new CFDI([], '', '');
+        $cfdi = new CFDI([]);
         $tempfile = tempnam('', '');
         $cfdi->save($tempfile);
 
@@ -76,7 +76,7 @@ class CFDITest extends TestCase
         $expectedFile = __DIR__ . '/../assets/with-certificado.xml';
 
         $certificado = new Certificado($cerfile);
-        $cfdi = new CFDI([], '', '');
+        $cfdi = new CFDI([]);
         $cfdi->addCertificado($certificado);
 
         $this->assertXmlStringEqualsXmlFile($expectedFile, $cfdi->getXML());
@@ -86,7 +86,7 @@ class CFDITest extends TestCase
     {
         $resolver = new XmlResolver();
 
-        $cfdi = new CFDI([], '', '');
+        $cfdi = new CFDI([]);
         $cfdi->setResolver($resolver);
 
         $testTimeElapsed = is_dir($resolver->getLocalPath());
