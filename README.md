@@ -576,7 +576,7 @@ como parte del proyecto orlandocharles/cfdi (https://github.com/orlandocharles/c
 [build]: https://travis-ci.org/eclipxe13/cfdi?branch=master
 [quality]: https://scrutinizer-ci.com/g/eclipxe13/cfdi/
 [sensiolabs]: https://insight.sensiolabs.com/projects/ffa9eb49-58e3-4532-acdd-f8089d46ad73
-[coverage]: https://scrutinizer-ci.com/g/eclipxe13/cfdi/code-structure/master
+[coverage]: https://scrutinizer-ci.com/g/eclipxe13/cfdi/code-structure/master/code-coverage
 [downloads]: https://packagist.org/packages/eclipxe/cfdi
 
 [badge-source]: http://img.shields.io/badge/source-eclipxe13/cfdi-blue.svg?style=flat-square

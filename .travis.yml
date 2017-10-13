@@ -18,6 +18,13 @@ script:
   - vendor/bin/phpunit --coverage-text --coverage-clover=build/tests/coverage.xml
   - vendor/bin/phpstan.phar analyze -l max src/ tests/ || true
 
+after_script:
+  - |
+    if [[ $TRAVIS_PHP_VERSION == '7.0' ]]; then
+      wget https://scrutinizer-ci.com/ocular.phar
+      php ocular.phar code-coverage:upload --format=php-clover build/tests/coverage.xml
+    fi
+
 notifications:
   email:
     on_success: never
