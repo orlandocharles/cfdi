@@ -109,10 +109,8 @@ class CFDITest extends TestCase
     {
         $expectedFile = __DIR__ . '/../assets/with-sello.xml';
 
-        $cerFile = __DIR__ . '/../assets/certs/CSD01_AAA010101AAA.cer';
         $key = file_get_contents(__DIR__ . '/../assets/certs/CSD01_AAA010101AAA.key.pem');
-        $cfdi = new CFDI([], '', $key, new XmlResolver());
-        $cfdi->addCertificado(new Certificado($cerFile));
+        $cfdi = new CFDI(['NoCertificado' => '30001000000300023708'], '', $key, new XmlResolver());
 
         $this->assertXmlStringEqualsXmlFile($expectedFile, $cfdi->getXML());
     }
