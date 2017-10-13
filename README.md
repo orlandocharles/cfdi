@@ -1,12 +1,13 @@
 # Comprobante Fiscal Digital por Internet (CFDI v3.3)
 
-[![Travis](https://img.shields.io/travis/eclipxe13/cfdi.svg?style=flat-square)](https://travis-ci.org/eclipxe13/cfdi)
-[![License](https://img.shields.io/github/license/eclipxe13/cfdi.svg?style=flat-square)](https://packagist.org/packages/eclipxe13/cfdi)
-
-- [Instalación](#instalación)
-- [Uso](#uso)
-- [Licencia](#licencia)
-- [Donación](#donación)
+[![Source Code][badge-source]][source]
+[![Latest Version][badge-release]][release]
+[![Software License][badge-license]][license]
+[![Build Status][badge-build]][build]
+[![Scrutinizer][badge-quality]][quality]
+[![Coverage Status][badge-coverage]][coverage]
+[![Total Downloads][badge-downloads]][downloads]
+[![SensioLabsInsight][badge-sensiolabs]][sensiolabs]
 
 ## Instalación
 
@@ -551,6 +552,11 @@ $cfdi = new CFDI([], $resolver);
 Si se encuentra detrás de un proxy o quiere usar sus propios métodos de descarga puede implementar
 la interfaz `XmlResourceRetriever\Downloader\DownloaderInterface` y establecérsela a su objeto `XmlResolver`
 
+## Contribuciones
+
+¡Sus contribuciones son bienvenidas! Por favor lea el archivo [CONTRIBUTING][] para más detalles.
+No olvides también revisar los archivos [CHANGELOG][] y [TODO][].
+
 ## Licencia
 
 La librería eclipxe/cfdi tiene copyright © Carlos C Soto y está bajo la licencia MIT. 
@@ -558,3 +564,26 @@ Ver el archivo de [Licencia](LICENSE) para más información.
 
 Los derechos de autor de algunas porciones de este proyecto pertenecen a Orlando Charles <me@orlandocharles.com>, 2017
 como parte del proyecto orlandocharles/cfdi (https://github.com/orlandocharles/cfdi) con licencia MIT.
+
+
+[contributing]: https://github.com/eclipxe13/CfdiUtils/blob/master/CONTRIBUTING.md
+[changelog]: https://github.com/eclipxe13/CfdiUtils/blob/master/docs/CHANGELOG.md
+[todo]: https://github.com/eclipxe13/CfdiUtils/blob/master/docs/TODO.md
+
+[source]: https://github.com/eclipxe13/cfdi
+[release]: https://github.com/eclipxe13/cfdi/releases
+[license]: https://github.com/eclipxe13/cfdi/blob/master/LICENSE
+[build]: https://travis-ci.org/eclipxe13/cfdi?branch=master
+[quality]: https://scrutinizer-ci.com/g/eclipxe13/cfdi/
+[sensiolabs]: https://insight.sensiolabs.com/projects/ffa9eb49-58e3-4532-acdd-f8089d46ad73
+[coverage]: https://scrutinizer-ci.com/g/eclipxe13/cfdi/code-structure/master
+[downloads]: https://packagist.org/packages/eclipxe/cfdi
+
+[badge-source]: http://img.shields.io/badge/source-eclipxe13/cfdi-blue.svg?style=flat-square
+[badge-release]: https://img.shields.io/github/release/eclipxe13/cfdi.svg?style=flat-square
+[badge-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[badge-build]: https://img.shields.io/travis/eclipxe13/cfdi/master.svg?style=flat-square
+[badge-quality]: https://img.shields.io/scrutinizer/g/eclipxe13/cfdi/master.svg?style=flat-square
+[badge-sensiolabs]: https://insight.sensiolabs.com/projects/ffa9eb49-58e3-4532-acdd-f8089d46ad73/mini.png
+[badge-coverage]: https://img.shields.io/scrutinizer/coverage/g/eclipxe13/cfdi/master.svg?style=flat-square
+[badge-downloads]: https://img.shields.io/packagist/dt/eclipxe/cfdi.svg?style=flat-square
